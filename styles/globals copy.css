@@ -11,7 +11,6 @@ body {
   line-height: 1.5;
   color: #333;
   background: #a1c3ff;
-  height: 100%;
 }
 
 ul {
@@ -25,21 +24,13 @@ a {
 
 .wrapper {
   max-width: 1100px;
-  height: 800px;
   margin: 0 auto;
   padding: 0 30px;
-}
-#__next {
-  height: 100%;
-}
-#map {
-  height: 100%;
 }
 
 .navbar .container {
   display: flex;
   justify-content: space-around;
-  align-content: center;
   max-width: 100%;
   margin: 5px;
   padding: 10px;
@@ -72,8 +63,8 @@ a {
   justify-content: space-between;
   align-items: center;
   list-style-type: none;
-  background-color: transparent;
-  color:slategrey;
+  background-color: #0a51cc;
+  color:white;
   border-radius: 10px;
   margin: 5px 10px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.6);
@@ -98,8 +89,8 @@ a {
 .flex-container{
   display: flex;
   justify-content: space-around;
-  background-color: transparent;
-  color: slategrey;
+  background-color: #0a51cc;
+  color: #fff;
   border-radius: 10px;
   margin: 10px 10px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.6);
@@ -109,7 +100,6 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .flex-container .right {
@@ -120,10 +110,6 @@ a {
 .btn-promo {
   border: none;
   background-color: transparent;
-}
-#__next > div > div.flex-container > div.content-center {
-  border: grey solid 1px;
-  border-radius: 15px;
 }
 .center-votes {
   display: flex;
@@ -167,7 +153,12 @@ a {
   margin: 0px 10px;
   padding: 0px;
 }
-
+#__next {
+  height: 100%;
+}
+#map {
+  height: 100%;
+}
 
 #button-ok{
   background-color: greenyellow;
@@ -201,48 +192,13 @@ a {
 }
 article.card { 
   display: flex;
-  background-color:transparent;
-  color: slategrey;
+  background-color: #0a51cc;
+  color: #fff;
   border-radius: 10px;
   margin: 5px 10px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.6);
   padding: 15px 20px;
 }
-.text {
-  font-size: 20px;
-  width: 258px;
-  height: 210px;
-  border-bottom:grey solid 1px;
-  overflow: hidden;
-}
-.link {
-  width: 258px;
-  height: 73px;
-  border-bottom:grey solid 1px; ;
-  overflow: hidden;
-}
-.card-status {
-  font-size: 12px;
-}
-.card-buttons {
-  display: flex;
-  flex-direction: row;
-  margin: 0px;
-  padding: 0px;
-}
-.card-flip {
-  display: flex;
-  justify-content: flex-end;
-  align-content: flex-end;
-}
-
-
-.fight-link a {
-   text-decoration: none;
-   color:grey;
-}
-
-
 
 
 

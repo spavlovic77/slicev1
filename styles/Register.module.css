@@ -1,0 +1,19 @@
+.form input {
+  margin: 20px;
+  padding: 10px, 20px;
+  font-size: 18px;
+  border-radius: 28px;
+  border: 4px solid #ecd09c
+}
+.container {
+  text-align: center;
+}
+.form {
+  display: inline;
+}
+.form p {
+  display: inline;
+}
+.form captcha {
+text-align: center;
+}
