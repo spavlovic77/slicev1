@@ -158,7 +158,7 @@ const getTime = (t) => {
                 <Modal.Body> 
                 <Form>
                     <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Flipper's slice from the spot price increase</Form.Label>
+                      <Form.Label>Flippers slice from the spot price increase</Form.Label>
                       <Form.Control type="text" placeholder={share} onChange={(e) => setShare(e.target.value)} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="input1">
@@ -166,19 +166,19 @@ const getTime = (t) => {
                       <Form.Control type="text" placeholder={cashB} onChange={(e) => setCashB(e.target.value)} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Influencers's slice for each created spot</Form.Label>
+                      <Form.Label>Influencerss slice for each created spot</Form.Label>
                       <Form.Control type="text" placeholder={influCrea} onChange={(e) => setInfluCrea(e.target.value)} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Users's slice for each created spot</Form.Label>
+                      <Form.Label>Users slice for each created spot</Form.Label>
                       <Form.Control type="text" placeholder={usersCrea} onChange={(e) => setUsersCrea(e.target.value)} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Developer's 1 slice for each created spot</Form.Label>
+                      <Form.Label>Developers 1 slice for each created spot</Form.Label>
                       <Form.Control type="text" placeholder="1" disabled/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Developer's 2 slice for each created spot</Form.Label>
+                      <Form.Label>Developers 2 slice for each created spot</Form.Label>
                       <Form.Control type="text" placeholder="5" disabled/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="input1">
@@ -186,15 +186,15 @@ const getTime = (t) => {
                       <Form.Control type="text" placeholder="30" disabled/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Influencer's slice for each flipped spot</Form.Label>
+                      <Form.Label>Influencers slice for each flipped spot</Form.Label>
                       <Form.Control type="text" placeholder={influFlip} onChange={(e) => setInfluFlip(e.target.value)} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Users's slice for each flipped spot</Form.Label>
+                      <Form.Label>Userss slice for each flipped spot</Form.Label>
                       <Form.Control type="text" placeholder={usersFlip} onChange={(e) => setUsersFlip(e.target.value)} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Charity's slice for each flipped spot</Form.Label>
+                      <Form.Label>Charitys slice for each flipped spot</Form.Label>
                       <Form.Control type="text" placeholder={charFlip} onChange={(e) => setCharFlip(e.target.value)} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="input1">
