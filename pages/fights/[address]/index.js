@@ -100,7 +100,7 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
               })
               const charity_addr = await fightContract.methods.staked().call({ from: accounts[0] })
               .then(data => {
-                setCharity(data[3])
+                setCharity(data[5])
               })
               const stakedInFight = await fightContract.methods.staked().call({ from: accounts[0] })
               .then(data => {
@@ -154,6 +154,11 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
       setFreshData(!freshData)
     }
     const handleSpotFlip = async(text,link, pic, spot, price) => {
+      if (text==undefined || link==undefined) {
+        alert('Looks like you did not fill some value(s). Please check formular.')
+        return;
+      }
+      else {
       console.log(text, link, pic, spot, price)
       const spotIndex = spot-1;
       await fightContract.methods.flip_Maf(spotIndex, text, link, pic).send({ from: accounts[0], value: price})
@@ -161,6 +166,7 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
       setFreshData(!freshData)
       window.location.reload();
     }
+  }
     const handleSpotReset = async(spot) => {
       const spotIndex = spot-1;
       await fightContract.methods.resetspot(spotIndex).send({ from: accounts[0]})

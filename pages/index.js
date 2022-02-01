@@ -1,10 +1,14 @@
 import React from 'react'
+import Link from 'next/link'
 
 const index = () => {
   return (
-    <div>
-      <h1>hello world</h1>
-    </div>
+    <>
+    <section className='welcome'>
+    <Link href='/slice'><a><img src='/slice.png'></img></a></Link>
+    </section>
+    
+    </>
   )
 }
 

@@ -29,6 +29,12 @@ a {
   margin: 0 auto;
   padding: 0 30px;
 }
+.welcome {
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+
+}
 #__next {
   height: 100%;
 }
@@ -120,6 +126,12 @@ a {
 .btn-promo {
   border: none;
   background-color: transparent;
+  font-size: 8px;
+}
+.see-map a {
+  font-size: 8px;
+  text-decoration: none;
+  color: black;
 }
 #__next > div > div.flex-container > div.content-center {
   border: grey solid 1px;
