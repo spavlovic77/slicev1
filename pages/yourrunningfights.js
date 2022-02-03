@@ -40,22 +40,6 @@ const YourRunningFights = ({ fightFactory, web3, accounts,slice, networkId  }) =
   const { data: activeOnly } = useSWR(fightsByAdmin ? [fightsByAdmin, 'onlyActive'] : null, fetcherOnlyActive)
   const { data: details } = useSWR(activeOnly ? [activeOnly, accounts, web3, 'details'] : null, fetcherFightDetails)
 
-
-const getTime = (t) => {
-  const d = new Date();
-  let time = d.getTime();
-  let timeInteger=parseInt(time);
-  let counDownInteger=parseInt(t)*1000
-  const countDownDate = timeInteger+counDownInteger
-  const distance = ((countDownDate-timeInteger))
-  const days=(Math.floor(distance / (1000 * 60 * 60 * 24)))
-  const hours=(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)))
-  const minutes=(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)))
-  const seconds=(Math.floor((distance % (1000 * 60)) / 1000))
-  const formattedTime = days + "d " + hours + "h "+ minutes + "m " + seconds + "s "
-  return formattedTime;
-      }
-
       const [freshMintData, setFreshMintData] = useState(true)
       const [loadingMintData, setLoadingMintData] = useState(false)
       const [staked, setStaked] = useState(undefined)
@@ -79,10 +63,12 @@ const getTime = (t) => {
       }, [freshMintData]);
   
   
+      const [showSpinnerMinter, setShowSpinnerMinter] = useState(false)
       const handleMint = async () => {
+        setShowSpinnerMinter(true)
         await slice.methods.vSliceMinting_ExW().send({ from: accounts[0] })
         .on('receipt', receipt => {
-          setFreshMintData(!freshMintData)
+          setShowSpinnerMinter(false)
         })
         };
 
@@ -132,7 +118,7 @@ const getTime = (t) => {
 
   return (
     <>
-        {loadingMintData && <Navbar staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
+        {loadingMintData && <Navbar showSpinnerMinter={showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
         <div className='table'>
     <table>
         <tr>

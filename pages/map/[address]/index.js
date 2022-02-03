@@ -134,20 +134,20 @@ useEffect(() => {
   init();
 }, [freshMintData]);
 
-
+const [showSpinnerMinter, setShowSpinnerMinter] = useState(false)
 const handleMint = async () => {
+  setShowSpinnerMinter(true)
   await slice.methods.vSliceMinting_ExW().send({ from: accounts[0] })
   .on('receipt', receipt => {
-    setFreshMintData(!freshMintData)
+    setShowSpinnerMinter(false)
   })
   };
-
 
   return (
     <>    
       {error && <div>Error.....</div>}
       {!priceOfGood && <div>Loading price....</div>}
-      {loadingMintData && <Navbar networkId={networkId} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory}/>}
+      {loadingMintData && <Navbar showSpinnerMinter={showSpinnerMinter} networkId={networkId} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory}/>}
       <div id="map" ref={googlemap} />
     </>
   )

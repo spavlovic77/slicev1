@@ -55,10 +55,12 @@ const Yourfights = ({ accounts, slice, fightFactory, web3, networkId }) => {
   }, [freshMintData]);
 
 
+  const [showSpinnerMinter, setShowSpinnerMinter] = useState(false)
   const handleMint = async () => {
+    setShowSpinnerMinter(true)
     await slice.methods.vSliceMinting_ExW().send({ from: accounts[0] })
     .on('receipt', receipt => {
-      setFreshMintData(!freshMintData)
+      setShowSpinnerMinter(false)
     })
     };
 
@@ -72,7 +74,7 @@ const Yourfights = ({ accounts, slice, fightFactory, web3, networkId }) => {
 
   return (
     <>
-     {loadingMintData && <Navbar onMint={handleMint} staked={staked} vSliceBalance={vSliceBalance} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
+     {loadingMintData && <Navbar showSpinnerMinter={showSpinnerMinter} onMint={handleMint} staked={staked} vSliceBalance={vSliceBalance} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
     <div >
       {!all && 'Loading...'}
       {!detail && 'Loading...'}

@@ -57,10 +57,12 @@ const { data: detail } = useSWR(all ? [web3, accounts, all, 'detailsOfFights'] :
   }, [freshMintData]);
 
 
+  const [showSpinnerMinter, setShowSpinnerMinter] = useState(false)
   const handleMint = async () => {
+    setShowSpinnerMinter(true)
     await slice.methods.vSliceMinting_ExW().send({ from: accounts[0] })
     .on('receipt', receipt => {
-      setFreshMintData(!freshMintData)
+      setShowSpinnerMinter(false)
     })
     };
 
@@ -68,7 +70,7 @@ const { data: detail } = useSWR(all ? [web3, accounts, all, 'detailsOfFights'] :
     console.log({all})
   return (
     <>
-      <Navbar onMint={handleMint} staked={staked} vSliceBalance={vSliceBalance} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>
+      <Navbar onMint={handleMint} showSpinnerMinter={showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>
     <div className='table'>
     <table>
         <tr>

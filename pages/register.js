@@ -1,6 +1,7 @@
 import Web3Container from '../lib/infra/Web3Containter'
 import Footer from '../lib/components/Footer'
 import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
 import Alert from 'react-bootstrap/Alert'
 import axios from 'axios';
 import Navbar from '../lib/components/Navbar'
@@ -8,6 +9,8 @@ import { useState, useEffect, useRef }  from 'react'
 import { Loader } from '@googlemaps/js-api-loader';
 import FormRegister from '../lib/components/FormRegister'
 import { useRouter } from 'next/router'
+import { Icon } from 'web3uikit';
+import Spinner from 'react-bootstrap/Spinner'
 
 const Register = ({ accounts, slice, fightFactory, networkId }) => {
   const googlemap = useRef(null);
@@ -20,19 +23,16 @@ const Register = ({ accounts, slice, fightFactory, networkId }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-    // const [claimMessage, setClaimMessage] = useState({
-    //   payload: undefined,
-    //   type: undefined
-    // });
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+const [showSpinner, setShowSpinner] = useState(false)
     const handleRegister = async () => {
+      setShowSpinner(true)
       console.log('lat, lon', lat, lon)
-      //event.preventDefault();
       const address = accounts[0]
-      // setClaimMessage({
-      //   type: 'primary',
-      //   payload: 'Processing your registration....'
-      // });
       try {
         const response = await axios.post(
           '/api/whitelisting', 
@@ -40,15 +40,6 @@ const Register = ({ accounts, slice, fightFactory, networkId }) => {
             address
           }
         );
-        // setClaimMessage({
-        //   type: 'primary',
-        //   payload: `
-        //     Submitting your account to the blockchain.....
-        //     Address: ${response.data.address}
-        //   `
-        // });
-        // console.log('sig', response.data.signature)
-        // console.log('sig, lat, lon, nick', response.data.signature, lat, lon, nick)
         const receipt = await slice
           .methods
           .addToWhitelist_a7I(
@@ -57,31 +48,13 @@ const Register = ({ accounts, slice, fightFactory, networkId }) => {
             `'`+lon+`'`,
             nick
           )
-          .send({from: accounts[0]});
-          console.log(receipt)
-          router.reload();
-        // setClaimMessage({
-        //   type: 'primary',
-        //   payload: `Registraton success!
-        //             Address: ${response.data.address}
-        //   `
-        // });
+          .send({from: accounts[0]})
+          .on('receipt', receipt => {
+            console.log(receipt.events.newMinter.returnValues.minter)
+          })
+          handleShow()
+        
       } catch(e) {console.log(e)}
-  //     {
-  //       if(e.message === 'Request failed with status code 401') {
-  //         setClaimMessage({
-  //           type: 'danger',
-  //           payload: `Registration failed
-  // Reason: Address not registered`
-  //         });
-  //         return;
-  //       }
-  //       setClaimMessage({
-  //         type: 'danger',
-  //         payload: `Airdrop failed
-  // Reason" Airdrop already sent to ${address}`
-  //       });
-  //     }
     };
 
     useEffect(() => {
@@ -155,21 +128,49 @@ const Register = ({ accounts, slice, fightFactory, networkId }) => {
       init();
     }, [freshMintData]);
     
-    
+    const [showSpinner2, setShowSpinner2] = useState(false)
     const handleMint = async () => {
+      setShowSpinner2(true)
       await slice.methods.vSliceMinting_ExW().send({ from: accounts[0] })
       .on('receipt', receipt => {
+        console.log(receipt)
         setFreshMintData(!freshMintData)
+        handleClose();
+        router.push('/slice')
       })
       };
-
+   
     
       return (
 <>
     
       {(loading && loadingMintData) && <Navbar networkId={networkId} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory}></Navbar>}
-      {whiteList!=0 ? null : <FormRegister lat={lat} lon={lon} onSetNick={handleSetNick} onRegister={handleRegister}/> }
+      {whiteList!=0 ? null : <FormRegister showSpinner={showSpinner} lat={lat} lon={lon} onSetNick={handleSetNick} onRegister={handleRegister}/> }
       <div id="map" ref={googlemap}/> 
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title><Icon fill="green" size={32} svg="checkmark"/>Congratulations</Modal.Title>
+        </Modal.Header>
+        <Modal.Body><Icon fill="green" size={32} svg="check"/>Lets mint your SLICE now</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          {!showSpinner2 ?<Button variant="secondary" onClick={handleMint}>Mint now</Button> : <Button variant="secondary" disabled>
+                                                                                <Spinner
+                                                                                  as="span"
+                                                                                  animation="grow"
+                                                                                  size="sm"
+                                                                                  role="status"
+                                                                                  aria-hidden="true"
+                                                                                />
+                                                                                Minting...
+                                                                              </Button>}
+
+        </Modal.Footer>
+      </Modal>
+
 </>
     );
 }

@@ -38,10 +38,12 @@ const { data: fights, errorfights } = useSWR([fightFactory, accounts, 'fightsByA
       }, [freshMintData]);
   
   
+      const [showSpinnerMinter, setShowSpinnerMinter] = useState(false)
       const handleMint = async () => {
+        setShowSpinnerMinter(true)
         await slice.methods.vSliceMinting_ExW().send({ from: accounts[0] })
         .on('receipt', receipt => {
-          setFreshMintData(!freshMintData)
+          setShowSpinnerMinter(false)
         })
         };
   
@@ -49,7 +51,7 @@ const { data: fights, errorfights } = useSWR([fightFactory, accounts, 'fightsByA
       return (
         <>
         
-         {loadingMintData && <Navbar staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
+         {loadingMintData && <Navbar showSpinnerMinter={showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
          {!fights && 'Loading.....'}
         {fights && <AdminFightsNew newFights={fights.filter(f => f.active===false)} fightFactory={fightFactory} web3={web3} accounts={accounts}/>}
         
