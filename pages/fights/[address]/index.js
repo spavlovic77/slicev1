@@ -140,6 +140,7 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
         .then(console.log('ide'))
         setFreshData(!freshData)
       }
+      //const [buyModalShow, setBuyModalShow] = useState(true)
       const [showSpinnerBuy, setShowSpinnerBuy] = useState(false)
       const handleBuySpot = async(text, link, pic) => {
         if (text==undefined || link==undefined) {
@@ -149,9 +150,13 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
         else {
       setShowSpinnerBuy(true)
       await fightContract.methods.createSpot_g4A(text, link, pic).send({ from: accounts[0], value: fightData[1]})
-      .then(console.log('ide'))
+      .on('receipt', receipt => {
+        console.log('spot bought')
+      })
       setFreshData(!freshData)
-      window.location.reload();
+      //window.location.reload();
+      setShowSpinnerBuy(false)
+      //setBuyModalShow(false)
         }
       }
     const [showSpinnerReserve, setShowSpinnerReserve] = useState(false)

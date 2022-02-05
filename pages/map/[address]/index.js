@@ -52,7 +52,7 @@ useEffect(() => {
     Marker(); 
     function Marker() {
       if (mintersData) {
-        mintersData.map(minter => { 
+        mintersData.filter(f => f.contract != '0x0000000000000000000000000000000000000000').map(minter => { 
         const LT= minter.Lat
         const a= LT.replace(/[']/g, '')
         const LO= minter.Lon
