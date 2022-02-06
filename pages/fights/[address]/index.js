@@ -31,6 +31,7 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
     const [startTime, setStartTime] = useState(undefined)
     const [freshData, setFreshData] = useState(true)
     const [charity, setCharity] = useState(undefined)
+    const [shortUrl, setShortUrl] = useState()
   
   
 
@@ -62,9 +63,13 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
               .then(data => {
                 setFightData(data)
               })
-              const spotResPrice = await fightContract.methods.getFightData().call({ from: accounts[0] })
+              const spotResPrice = await fightContract.methods.getFightParams2().call({ from: accounts[0] })
               .then(data => {
-                setSpotResPrice(data[10])
+                setSpotResPrice(data[4])
+              })
+              const short = await fightContract.methods.getFightData().call({ from: accounts[0] })
+              .then(data => {
+                setShortUrl(data[9])
               })
               const charityBalance = await fightContract.methods.showBalance().call({ from: accounts[0] })
               .then(data => {
@@ -98,11 +103,11 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
               .then(data => {
                 setStartTime(data[11])
               })
-              const charity_addr = await fightContract.methods.staked().call({ from: accounts[0] })
+              const charity_addr = await fightContract.methods.getFightParams2().call({ from: accounts[0] })
               .then(data => {
-                setCharity(data[5])
+                setCharity(data[3])
               })
-              const stakedInFight = await fightContract.methods.staked().call({ from: accounts[0] })
+              const stakedInFight = await fightContract.methods.getFightParams2().call({ from: accounts[0] })
               .then(data => {
                 setStaked(data[0])
                 setAddress(address)
@@ -226,7 +231,7 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
     <>
 
       {loading  && <Navbar showSpinnerMinter = {showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} fightFactory={fightFactory} address={address} accounts={accounts} slice={slice} web3={web3} networkId={networkId}/>}
-      {(loading && timer && startTime)  && <Content showSpinnerVote1={showSpinnerVote1} showSpinnerVote2={showSpinnerVote2} showSpinnerStake={showSpinnerStake} showSpinnerUnstake={showSpinnerUnstake} charity={charity} startTime={startTime} timer={timer} lsb={lsb} votes1={votes1} votes2={votes2} onVote1={handleVote1} onVote2={handleVote2} accounts={accounts} web3={web3} address ={address} onWithdraw={handleOnWithdraw} onPotWithdraw={handlePotWithraw} onStaking={handleStaking} onUnStaking={handleUnStaking} fightData={fightData} pendingWithdrawal={pendingWithdrawal} staked={stakedInFight} vSliceBalance={vSliceBalance} charityBalance={charityBalance}/>}
+      {(loading && timer && startTime)  && <Content shortUrl={shortUrl} showSpinnerVote1={showSpinnerVote1} showSpinnerVote2={showSpinnerVote2} showSpinnerStake={showSpinnerStake} showSpinnerUnstake={showSpinnerUnstake} charity={charity} startTime={startTime} timer={timer} lsb={lsb} votes1={votes1} votes2={votes2} onVote1={handleVote1} onVote2={handleVote2} accounts={accounts} web3={web3} address ={address} onWithdraw={handleOnWithdraw} onPotWithdraw={handlePotWithraw} onStaking={handleStaking} onUnStaking={handleUnStaking} fightData={fightData} pendingWithdrawal={pendingWithdrawal} staked={stakedInFight} vSliceBalance={vSliceBalance} charityBalance={charityBalance}/>}
       {loading  && <Spots showSpinnerReset={showSpinnerReset} showSpinnerReserve={showSpinnerReserve} showSpinnerBuy={showSpinnerBuy} showSpinnerFlip={showSpinnerFlip} accounts={accounts} onBuySpot={handleBuySpot} onSpotReservation={handleSpotReservation} onSpotFlip={handleSpotFlip} onSpotReset={handleSpotReset} fightData={fightData} spots={spots} address={addr}/>}
     </>
   )
