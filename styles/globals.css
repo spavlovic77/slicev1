@@ -258,12 +258,15 @@ article.card {
   overflow: hidden;
 }
 .card-status {
+  display: flex;
+  margin: 0px;
+  padding: 0px;
   font-size: 12px;
 }
 .card-buttons {
   display: flex;
   flex-direction: row;
-  margin: 0px;
+  margin: 5px;
   padding: 0px;
 }
 .card-flip {
@@ -272,15 +275,12 @@ article.card {
   align-content: flex-end;
 }
 
-
-.fight-link a {
-   text-decoration: none;
-   color:grey;
+div.progress {
+  margin: 5px;
 }
-
-
-
-
+.btn-promo:hover {
+ color: rgb(86, 86, 209)
+}
 
 
 

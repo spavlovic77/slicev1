@@ -145,7 +145,7 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
         .then(console.log('ide'))
         setFreshData(!freshData)
       }
-      //const [buyModalShow, setBuyModalShow] = useState(true)
+      const [buyModalShow, setBuyModalShow] = useState(true)
       const [showSpinnerBuy, setShowSpinnerBuy] = useState(false)
       const handleBuySpot = async(text, link, pic) => {
         if (text==undefined || link==undefined) {
@@ -159,9 +159,8 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
         console.log('spot bought')
       })
       setFreshData(!freshData)
-      //window.location.reload();
       setShowSpinnerBuy(false)
-      //setBuyModalShow(false)
+      setBuyModalShow(false)
         }
       }
     const [showSpinnerReserve, setShowSpinnerReserve] = useState(false)
@@ -173,6 +172,7 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
       setFreshData(!freshData)
       window.location.reload()
     }
+    const [showFlipModal, setShowFlipModal] = useState(true)
     const [showSpinnerFlip, setShowSpinnerFlip] = useState(false)
     const handleSpotFlip = async(text,link, pic, spot, price) => {
       if (text==undefined || link==undefined) {
@@ -186,7 +186,7 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
       await fightContract.methods.flip_Maf(spotIndex, text, link, pic).send({ from: accounts[0], value: price})
       .then(console.log('ide'))
       setFreshData(!freshData)
-      window.location.reload();
+      setShowFlipModal(false)
     }
   }
     const [showSpinnerReset, setShowSpinnerReset] = useState(false)
@@ -227,12 +227,13 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
       })
       };
 
+      console.log({buyModalShow})
   return (
     <>
 
       {loading  && <Navbar showSpinnerMinter = {showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} fightFactory={fightFactory} address={address} accounts={accounts} slice={slice} web3={web3} networkId={networkId}/>}
       {(loading && timer && startTime)  && <Content shortUrl={shortUrl} showSpinnerVote1={showSpinnerVote1} showSpinnerVote2={showSpinnerVote2} showSpinnerStake={showSpinnerStake} showSpinnerUnstake={showSpinnerUnstake} charity={charity} startTime={startTime} timer={timer} lsb={lsb} votes1={votes1} votes2={votes2} onVote1={handleVote1} onVote2={handleVote2} accounts={accounts} web3={web3} address ={address} onWithdraw={handleOnWithdraw} onPotWithdraw={handlePotWithraw} onStaking={handleStaking} onUnStaking={handleUnStaking} fightData={fightData} pendingWithdrawal={pendingWithdrawal} staked={stakedInFight} vSliceBalance={vSliceBalance} charityBalance={charityBalance}/>}
-      {loading  && <Spots showSpinnerReset={showSpinnerReset} showSpinnerReserve={showSpinnerReserve} showSpinnerBuy={showSpinnerBuy} showSpinnerFlip={showSpinnerFlip} accounts={accounts} onBuySpot={handleBuySpot} onSpotReservation={handleSpotReservation} onSpotFlip={handleSpotFlip} onSpotReset={handleSpotReset} fightData={fightData} spots={spots} address={addr}/>}
+      {loading  && <Spots showFlipModal={showFlipModal} buyModalShow={buyModalShow} showSpinnerReset={showSpinnerReset} showSpinnerReserve={showSpinnerReserve} showSpinnerBuy={showSpinnerBuy} showSpinnerFlip={showSpinnerFlip} accounts={accounts} onBuySpot={handleBuySpot} onSpotReservation={handleSpotReservation} onSpotFlip={handleSpotFlip} onSpotReset={handleSpotReset} fightData={fightData} spots={spots} address={addr}/>}
     </>
   )
 }
