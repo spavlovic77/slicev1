@@ -139,7 +139,12 @@ const [showSpinner, setShowSpinner] = useState(false)
         router.push('/slice')
       })
       };
-   
+
+    const [screenLoad, setScreenLoad] =useState(false)
+    const handleCloseRegister = () => setScreenLoad(false)
+   useEffect(() => {
+   setScreenLoad(true)
+   }, [])
     
       return (
 <>
@@ -168,6 +173,35 @@ const [showSpinner, setShowSpinner] = useState(false)
                                                                                 Minting...
                                                                               </Button>}
 
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={screenLoad} onHide={handleCloseRegister}>
+        <Modal.Header closeButton>
+          <Modal.Title>How to register</Modal.Title>
+        </Modal.Header>
+        <Modal.Body><ul>
+                      <li>
+                      <Icon fill="green" size={24} svg="check"/>Zoom in the map by holding CTRL
+                      </li> 
+                      <li>
+                      <Icon fill="green" size={24} svg="check"/>Use RIGHT CLICK to place Marker. You can repeat it if you missed
+                      </li>
+                      <li>
+                      <Icon fill="green" size={24} svg="check"/>Place your Marker somewhere where people know your entered Nickname
+                      </li>
+                      <li>
+                      <Icon fill="green" size={24} svg="check"/>Otherwise people will Report you and you will be Blacklisted
+                      </li>
+                      <li>
+                      <Icon fill="green" size={24} svg="check"/>Do not create multiple accounts. You might be embarassed in the future. All is on-chain forever
+                      </li>
+                    </ul>
+            </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseRegister}>
+            Good, I understand
+          </Button>
         </Modal.Footer>
       </Modal>
 

@@ -23,7 +23,7 @@ const details =  async(slice, accounts, stakedByFights) =>  {
   const listN =[]
   for (let i=0; i<stakedByFights.length; i++) {
     const mintersData =  await slice.methods.getMinter(stakedByFights[i].staker).call({ from: accounts[0] }).then(data => {
-      listN.push({contract: stakedByFights[i].staker, Lat: data[3], Lon: data[4], Nick: data[5], Reported: data[1], GoodPoints: data[0]})
+      listN.push({contract: stakedByFights[i].staker, Lat: data[3], Lon: data[4], Nick: data[5], Reported: data[1], GoodPoints: data[0], Whitelisted: data[6]})
      })
   }
   return listN
@@ -62,12 +62,17 @@ useEffect(() => {
         const goodPoints = minter.GoodPoints
         const location = new google.maps.LatLng(a, b);
         const addr= minter.contract
-        addMarker(location, Nick, reported, goodPoints, addr);
+        const white= minter.Whitelisted
+        addMarker(location, Nick, reported, goodPoints, addr, white);
       })
     } else {console.log('wtf')}
     }
 
-    function addMarker(location, Nick, reported, gPoints, contract) {
+
+    function addMarker(location, Nick, reported, gPoints, contract, white) {
+      if (white ==true) {const label='Good'} else {const label='Blacklisted'}
+      const addrShortStart= contract.substring(0,6)
+      const addrShortEnd= contract.substring(38,42)
       const marker = new google.maps.Marker({
           position: location,
           map: map
@@ -77,8 +82,10 @@ useEffect(() => {
       });
       google.maps.event.addListener(marker, 'click', function() {
         infowindow.setContent('<p><b>Nickname:</b> '+Nick+'</p>' +
-                '<p><b>Reported:</b> '+reported+' times. <button id="button-f" onclick="Report('+contract+')">Report</button></p>' +
-                '<p><b>Good points:</b> '+gPoints+'. <button id="button-ok" onclick="goodPoints('+contract+')">Add a good point</button></p>'
+        '<p><b>Address: </b>'+addrShortStart+'...'+addrShortEnd+''+
+        '<p><b>Health:</b> '+label+'</p>'+
+                '<p><b>Reported:</b> '+reported+'/'+sliceParameters[2]+' <button id="button-f" onclick="Report('+contract+')">Report</button></p>' +
+                '<p><b>Good points:</b> '+gPoints+'/'+sliceParameters[3]+' <button id="button-ok" onclick="goodPoints('+contract+')">Unreport</button></p>'
                     );
 
         infowindow.open(map, this); 
@@ -101,7 +108,6 @@ useEffect(() => {
 });
 
 const fetchPriceOfGood = (slice, accounts) => (...args) => {
-  console.log('slice', slice, accounts)
   const [arg1, arg2,arg3] = args
     const address = arg1
     const method = arg2
@@ -111,6 +117,16 @@ const fetchPriceOfGood = (slice, accounts) => (...args) => {
     return priceOfGood
 }
 const { data: priceOfGood, error } = useSWR('priceOfGood', {fetcher: fetchPriceOfGood(slice, accounts)})
+
+const sliceParams = (slice, accounts) => (...args) => {
+  const [arg1, arg2,arg3] = args
+    const address = arg1
+    const method = arg2
+    const arg=arg3
+    const sliceParameters = slice.methods.sliceParams().call({ from: accounts[0] }).then((data) => {return data})
+    return sliceParameters
+}
+const { data: sliceParameters, errorParams } = useSWR('sliceParameters', {fetcher: sliceParams(slice, accounts)})
 
 const [freshMintData, setFreshMintData] = useState(true)
 const [loadingMintData, setLoadingMintData] = useState(false)

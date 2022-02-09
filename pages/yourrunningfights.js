@@ -11,6 +11,7 @@ import { useState, useEffect } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
+import { Table } from 'web3uikit';
 
 
 const fetcherFightsByAdmin = async(fightFactory, accounts) => {
@@ -115,26 +116,34 @@ const YourRunningFights = ({ fightFactory, web3, accounts,slice, networkId  }) =
          return fightPar
           }
 
-
+  if (details!=undefined) {
+    const dataFeed3 = details
+    .map((fight, index) => ['', <Link href="/fights/[address]" as={`/fights/${fight.contract}`}>{`Fight `+fight.contract.substring(0,6)+`...`+fight.contract.substring(38,42)}</Link>,
+    <Button variant='outline-secondary'  onClick={()=>fightParams(fight.contract, accounts, web3)} >Change params</Button>, ''])
+    .sort((a,b) => b.index > a.index ? 1 : -1)
+  }
+console.log({dataFeed3})
   return (
     <>
         {loadingMintData && <Navbar showSpinnerMinter={showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
-        <div className='table'>
-    <table>
-        <tr>
-          <th>Fight</th>
-          <th>Action</th>
-        </tr>
         
-        {details && details.map((fight, index) => (
-          <tr key={index}>
-          <td className='fight-link'>  <Link href="/fights/[address]" as={`/fights/${fight.contract}`}>{`Fight `+fight.contract.substring(0,6)+`...`+fight.contract.substring(38,42)}</Link>
-         </td>
-          <td><Button variant='outline-secondary'  onClick={()=>fightParams(fight.contract, accounts, web3)} >Change params</Button></td>
-          </tr>
-              )).sort((a,b) => b.index > a.index ? 1 : -1)}    
-              </table>
-        </div>          
+        <div className='tabs-wrapper'>
+          {details && <Table
+              columnsConfig="80px 3fr 2fr 80px"
+              data={dataFeed3}
+              header={[
+                '',
+                <span>Fight</span>,
+                <span>Action</span>,
+                ''
+              ]}
+              maxPages={3}
+              onPageNumberChanged={function noRefCheck(){}}
+              pageSize={5}
+            />}
+    </div>
+
+
 
 
     <Modal show={show} onHide={handleClose} backdrop="static">

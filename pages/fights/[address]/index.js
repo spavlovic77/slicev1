@@ -26,7 +26,7 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
     const [pendingWithdrawal, SetPendingWithdrawal] = useState(undefined)
     const [votes1, setVotes1] = useState(undefined)
     const [votes2, setVotes2] = useState(undefined)
-    const [lsb, setLastSpotPot] = useState(undefined)
+    const [lsb, setLastSpotPot] = useState(0)
     const [timer, setTimer] = useState(undefined)
     const [startTime, setStartTime] = useState(undefined)
     const [freshData, setFreshData] = useState(true)
@@ -83,9 +83,9 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
               .then(data => {
                 SetPendingWithdrawal(data[0])
               })
-              const lsb = await fightContract.methods.showLastSpotPot().call({ from: accounts[0] })
+              const lsb = await fightContract.methods.showBalance().call({ from: accounts[0] })
               .then(data => {
-                setLastSpotPot(data[0])
+                setLastSpotPot(data[2])
               })
               const staked = await slice.methods.getStakedBalance().call({ from: accounts[0] })
               .then(data => {
@@ -135,15 +135,21 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
         setFreshData(!freshData)
         setShowSpinnerVote2(false)
       }
+      const [showSpinnerWith, setShowSpinnerWith] = useState(false)
       const handleOnWithdraw = async() => {
+        setShowSpinnerWith(true)
         await fightContract.methods.makeWithdrawal().send({ from: accounts[0], value: ''})
         .then(console.log('ide'))
         setFreshData(!freshData)
+        setShowSpinnerWith(false)
       }
+      const [showSpinnerPot, setShowSpinnerPot] = useState(false)
       const handlePotWithraw = async() => {
+        setShowSpinnerPot(true)
         await fightContract.methods.makeWithdrawalLSP().send({ from: accounts[0], value: ''})
         .then(console.log('ide'))
         setFreshData(!freshData)
+        setShowSpinnerPot(false)
       }
       const [buyModalShow, setBuyModalShow] = useState(true)
       const [showSpinnerBuy, setShowSpinnerBuy] = useState(false)
@@ -170,7 +176,7 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
       await fightContract.methods.spotReserve_u5k(spotIndex).send({ from: accounts[0], value: spotResPrice})
       .then(console.log('ide'))
       setFreshData(!freshData)
-      window.location.reload()
+      setShowSpinnerReserve(false)
     }
     const [showFlipModal, setShowFlipModal] = useState(true)
     const [showSpinnerFlip, setShowSpinnerFlip] = useState(false)
@@ -186,6 +192,7 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
       await fightContract.methods.flip_Maf(spotIndex, text, link, pic).send({ from: accounts[0], value: price})
       .then(console.log('ide'))
       setFreshData(!freshData)
+      setShowSpinnerFlip(false)
       setShowFlipModal(false)
     }
   }
@@ -196,7 +203,7 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
       await fightContract.methods.resetspot(spotIndex).send({ from: accounts[0]})
       .then(console.log('ide'))
       setFreshData(!freshData)
-      window.location.reload();
+      setShowSpinnerReset(false)
     }
     const [showSpinnerStake, setShowSpinnerStake] = useState(false)
     const handleStaking = async(amount) => {
@@ -227,12 +234,12 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
       })
       };
 
-      console.log({buyModalShow})
+
   return (
     <>
 
       {loading  && <Navbar showSpinnerMinter = {showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} fightFactory={fightFactory} address={address} accounts={accounts} slice={slice} web3={web3} networkId={networkId}/>}
-      {(loading && timer && startTime)  && <Content shortUrl={shortUrl} showSpinnerVote1={showSpinnerVote1} showSpinnerVote2={showSpinnerVote2} showSpinnerStake={showSpinnerStake} showSpinnerUnstake={showSpinnerUnstake} charity={charity} startTime={startTime} timer={timer} lsb={lsb} votes1={votes1} votes2={votes2} onVote1={handleVote1} onVote2={handleVote2} accounts={accounts} web3={web3} address ={address} onWithdraw={handleOnWithdraw} onPotWithdraw={handlePotWithraw} onStaking={handleStaking} onUnStaking={handleUnStaking} fightData={fightData} pendingWithdrawal={pendingWithdrawal} staked={stakedInFight} vSliceBalance={vSliceBalance} charityBalance={charityBalance}/>}
+      {(loading && timer && startTime)  && <Content showSpinnerPot={showSpinnerPot} showSpinnerWith={showSpinnerWith} shortUrl={shortUrl} showSpinnerVote1={showSpinnerVote1} showSpinnerVote2={showSpinnerVote2} showSpinnerStake={showSpinnerStake} showSpinnerUnstake={showSpinnerUnstake} charity={charity} startTime={startTime} timer={timer} lsb={lsb} votes1={votes1} votes2={votes2} onVote1={handleVote1} onVote2={handleVote2} accounts={accounts} web3={web3} address ={address} onWithdraw={handleOnWithdraw} onPotWithdraw={handlePotWithraw} onStaking={handleStaking} onUnStaking={handleUnStaking} fightData={fightData} pendingWithdrawal={pendingWithdrawal} staked={stakedInFight} vSliceBalance={vSliceBalance} charityBalance={charityBalance}/>}
       {loading  && <Spots showFlipModal={showFlipModal} buyModalShow={buyModalShow} showSpinnerReset={showSpinnerReset} showSpinnerReserve={showSpinnerReserve} showSpinnerBuy={showSpinnerBuy} showSpinnerFlip={showSpinnerFlip} accounts={accounts} onBuySpot={handleBuySpot} onSpotReservation={handleSpotReservation} onSpotFlip={handleSpotFlip} onSpotReset={handleSpotReset} fightData={fightData} spots={spots} address={addr}/>}
     </>
   )

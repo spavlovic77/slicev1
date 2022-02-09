@@ -19,7 +19,7 @@ const details =  async(web3, accounts, all) =>  {
   const listN =[]
   for (let i=0; i<all.length; i++) {
    const fight = await new web3.eth.Contract(polygonFight.abi,all[i].fightContract)
-   const adminFights =  await fight.methods.staked().call({ from: accounts[0] }).then(data => {
+   const adminFights =  await fight.methods.getFightParams2().call({ from: accounts[0] }).then(data => {
       listN.push({contract: all[i].fightContract, Staked: data[0]})
      })
   }

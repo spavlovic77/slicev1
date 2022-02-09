@@ -64,6 +64,7 @@ a {
 
 #map {
   height: 100%;
+  margin: 10px;
 }
 
 .navbar .container {
@@ -281,7 +282,25 @@ div.progress {
 .btn-promo:hover {
  color: rgb(86, 86, 209)
 }
-
+.link-background {
+  border: solid grey 1px;
+  border-radius: 25px;
+  padding: 5px 5px;
+  margin: 1px 1px;
+  background-color: grey;
+  color: white;
+}
+.tabs-wrapper {
+  margin: 10px 10px;
+}
+.tabs-wrapper a {
+  color: slategray;
+  text-decoration: none;
+}
+.link a {
+  color: slategray;
+  text-decoration: none;
+}
 
 
 
