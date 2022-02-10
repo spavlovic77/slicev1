@@ -108,10 +108,10 @@ console.log({detail})
                 columnsConfig="50px 1fr 1fr 50px"
                 data={dataFeed}
                 header={[
-                  `&apos;``&apos;`,
+                  <span key={103}></span>,
                   <span key={101}>Fight</span>,
                   <span key={102}>Pot balance</span>,
-                  `&apos;``&apos;`
+                  <span key={104}></span>
                 ]}
                 maxPages={3}
                 onPageNumberChanged={function noRefCheck(){}}
@@ -128,10 +128,10 @@ console.log({detail})
                 columnsConfig="50px 1fr 1fr 50px"
                 data={dataFeed2}
                 header={[
-                  `&apos;``&apos;`,
+                  <span key={203}></span>,
                   <span key={201}>Fight</span>,
                   <span key={202}>Rewards from created spots</span>,
-                  `&apos;``&apos;`
+                  <span key={204}></span>
                 ]}
                 maxPages={3}
                 onPageNumberChanged={function noRefCheck(){}}
