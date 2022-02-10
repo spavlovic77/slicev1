@@ -118,7 +118,7 @@ const YourRunningFights = ({ fightFactory, web3, accounts,slice, networkId  }) =
 
   if (details!=undefined) {
     const dataFeed3 = details
-    .map((fight, index) => ['', <Link href="/fights/[address]" as={`/fights/${fight.contract}`}>{`Fight `+fight.contract.substring(0,6)+`...`+fight.contract.substring(38,42)}</Link>,
+    .map((fight, index) => ['', <Link key={index} href="/fights/[address]" as={`/fights/${fight.contract}`}>{`Fight `+fight.contract.substring(0,6)+`...`+fight.contract.substring(38,42)}</Link>,
     <Button variant='outline-secondary'  onClick={()=>fightParams(fight.contract, accounts, web3)} >Change params</Button>, ''])
     .sort((a,b) => b.index > a.index ? 1 : -1)
   }
