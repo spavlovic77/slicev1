@@ -65917,8 +65917,8 @@
     "97": {
       "events": {},
       "links": {},
-      "address": "0xf53565D12de708303fdF717485E3B29E449D2EB4",
-      "transactionHash": "0x56369d7cde3153c53c405f5d6229cf587930b894a523fc6faf24036030b3ca2a"
+      "address": "0x8f2B66C25e4c270F6ad040249A01552C8Da401DE",
+      "transactionHash": "0x2e966492704f3e4bd7754c98ea2efe96247146fb3642911c0cd8193665e0648d"
     },
     "5777": {
       "events": {},
@@ -66583,15 +66583,65 @@
           ],
           "name": "Chat",
           "type": "event"
+        },
+        "0x7ac1d74706984e50175cdfa1110674ddeb05cf53294d08a8a0d84d770bae668a": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "date",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "fightContract",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "Staker",
+              "type": "address"
+            }
+          ],
+          "name": "StakingVSlice",
+          "type": "event"
+        },
+        "0x5d0ff203cfdf2054bf57a387422c2ba70dbe7f81133ff55fffd141c09e07cb37": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "date",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "fightContract",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "Unstaker",
+              "type": "address"
+            }
+          ],
+          "name": "UnStakingVSlice",
+          "type": "event"
         }
       },
       "links": {},
-      "address": "0x48A5485a14365f2d76914bF9deFa65A3379c80d9",
-      "transactionHash": "0xb3ebf7c0ecbe95ebeda1751b6424fa4e0f8722a63d64b91cd11a906e1459226b"
+      "address": "0x6746b201Eb442234e91a7ABF2b3933a215f9dB7c",
+      "transactionHash": "0x845f0b054ab91931dd1b097487857c7fea0dc2ddff4a286766a324c6ba29fa63"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2022-02-09T21:23:35.352Z",
+  "updatedAt": "2022-02-09T23:55:35.224Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
