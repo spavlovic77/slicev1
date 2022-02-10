@@ -46,12 +46,12 @@ const { data: lastSpotBalance } = useSWR(all ? [web3, accounts, all, 'lastSpotBa
 
 if (lastSpotBalance!=undefined) {
   const dataFeed = lastSpotBalance.filter(a => a.lspBalance!='0')
-  .map((item) => [<span key={0}></span>, <Link key={1} href="/fights/[address]" as={`/fights/${item.contract}`}><a>{item.contract.substring(0,6)+'...'+item.contract.substring(38,42)}</a></Link>, <span key={2}>Web3.utils.fromWei(item.lspBalance, 'ether')</span>, <span key={3}></span>])
+  .map((item) => [<span key={0}></span>, <Link key={1} href="/fights/[address]" as={`/fights/${item.contract}`}><a>{item.contract.substring(0,6)+'...'+item.contract.substring(38,42)}</a></Link>, <span key={2}>{Web3.utils.fromWei(item.lspBalance, 'ether')}</span>, <span key={3}></span>])
   .sort((a,b) => b.lspBalance > a.lspBalance ? 1 : -1)
 }
 if (detail!=undefined) {
   const dataFeed2 = detail.filter(a => a.actTimer!='0')
-  .map((item) => [<span key={0}></span>, <Link key={10}href="/fights/[address]" as={`/fights/${item.contract}`}><a>{item.contract.substring(0,6)+'...'+item.contract.substring(38,42)}</a></Link>, <span key={20}>item.uscs+' %'</span>, <span key={30}></span>])
+  .map((item) => [<span key={0}></span>, <Link key={10}href="/fights/[address]" as={`/fights/${item.contract}`}><a>{item.contract.substring(0,6)+'...'+item.contract.substring(38,42)}</a></Link>, <span key={20}>{item.uscs+' %'}</span>, <span key={30}></span>])
   .sort((a,b) => b.uscs > a.uscs ? -1 : 1)
 }
 
