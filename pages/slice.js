@@ -109,8 +109,8 @@ console.log({detail})
                 data={dataFeed}
                 header={[
                   '',
-                  <span>Fight</span>,
-                  <span>Pot balance</span>,
+                  <span key={101}>Fight</span>,
+                  <span key={102}>Pot balance</span>,
                   ''
                 ]}
                 maxPages={3}
@@ -129,8 +129,8 @@ console.log({detail})
                 data={dataFeed2}
                 header={[
                   '',
-                  <span>Fight</span>,
-                  <span>Rewards from created spots</span>,
+                  <span key={201}>Fight</span>,
+                  <span key={202}>Rewards from created spots</span>,
                   ''
                 ]}
                 maxPages={3}
