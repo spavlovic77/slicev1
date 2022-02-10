@@ -118,8 +118,8 @@ const YourRunningFights = ({ fightFactory, web3, accounts,slice, networkId  }) =
 
   if (details!=undefined) {
     const dataFeed3 = details
-    .map((fight, index) => [<span key={index}></span>, <Link href="/fights/[address]" as={`/fights/${fight.contract}`}>{`Fight `+fight.contract.substring(0,6)+`...`+fight.contract.substring(38,42)}</Link>,
-    <Button variant='outline-secondary'  onClick={()=>fightParams(fight.contract, accounts, web3)} >Change params</Button>, ''])
+    .map((fight) => [<span key={1}></span>, <Link key={2} href="/fights/[address]" as={`/fights/${fight.contract}`}>{`Fight `+fight.contract.substring(0,6)+`...`+fight.contract.substring(38,42)}</Link>,
+    <Button key={3} variant='outline-secondary'  onClick={()=>fightParams(fight.contract, accounts, web3)} >Change params</Button>, <span key={4}></span>])
     .sort((a,b) => b.index > a.index ? 1 : -1)
   }
 console.log({dataFeed3})
@@ -132,10 +132,10 @@ console.log({dataFeed3})
               columnsConfig="80px 3fr 2fr 80px"
               data={dataFeed3}
               header={[
-                '',
-                <span>Fight</span>,
-                <span>Action</span>,
-                ''
+                <span key={30}></span>,
+                <span key={10}>Fight</span>,
+                <span key={20}>Action</span>,
+                <span key={40}></span>
               ]}
               maxPages={3}
               onPageNumberChanged={function noRefCheck(){}}
