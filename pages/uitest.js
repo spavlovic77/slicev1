@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, TabList, Tab, Icon, Button } from 'web3uikit';
+import { Table, Icon, Avatar, Tag } from 'web3uikit';
 
 const uitest = () => {
     return (
