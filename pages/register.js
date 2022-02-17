@@ -14,8 +14,8 @@ import Spinner from 'react-bootstrap/Spinner'
 
 const Register = ({ accounts, slice, fightFactory, networkId }) => {
   const googlemap = useRef(null);
-  const [lon, setLon] = useState(undefined)
-  const [lat, setLat] = useState(undefined)
+  const [lon, setLon] = useState()
+  const [lat, setLat] = useState()
   const [nick, setNick] = useState(undefined)
   const [defaultCenter, setDefaultCenter] = useState({ lat: -34.397, lng: 150.644 })
   const [zoom, setZoom] = useState(2)
@@ -188,7 +188,7 @@ const [showSpinner, setShowSpinner] = useState(false)
                       <Icon fill="green" size={24} svg="check"/>Use RIGHT CLICK to place Marker. You can repeat it if you missed
                       </li>
                       <li>
-                      <Icon fill="green" size={24} svg="check"/>Place your Marker somewhere where people know your entered Nickname
+                      <Icon fill="green" size={24} svg="check"/>Place your Marker somewhere where people know you by Nickname
                       </li>
                       <li>
                       <Icon fill="green" size={24} svg="check"/>Otherwise people will Report you and you will be Blacklisted
@@ -211,7 +211,7 @@ const [showSpinner, setShowSpinner] = useState(false)
 
 const infra = () => (
   <Web3Container
-  renderLoading={() => <div><Alert variant='warning'>Loading Dapp Page...</Alert></div>}
+  renderLoading={() => <div><Alert variant='warning'>Loading Dapp Page...Check your Metamask please</Alert></div>}
   render={({ accounts, slice, fightFactory, web3, networkId }) => (
     <Register accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>
   )}

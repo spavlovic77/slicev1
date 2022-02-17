@@ -118,6 +118,7 @@ const YourRunningFights = ({ fightFactory, web3, accounts,slice, networkId  }) =
 
   if (details!=undefined) {
     const dataFeed3 = details
+    .filter(f => f.actTimer!='0')
     .map((fight) => [<span key={1}></span>, <Link key={2} href="/fights/[address]" as={`/fights/${fight.contract}`}>{`Fight `+fight.contract.substring(0,6)+`...`+fight.contract.substring(38,42)}</Link>,
     <Button key={3} variant='outline-secondary'  onClick={()=>fightParams(fight.contract, accounts, web3)} >Change params</Button>, <span key={4}></span>])
     .sort((a,b) => b.index > a.index ? 1 : -1)
@@ -227,7 +228,7 @@ console.log({dataFeed3})
 const list = () => (
 
   <Web3Container
-    renderLoading={() => <div><Alert variant='warning'>Loading Dapp Page...</Alert></div>}
+    renderLoading={() => <div><Alert variant='warning'>Loading Dapp Page...Check your Metamask please</Alert></div>}
     render={({ accounts, slice, fightFactory, web3, networkId}) => (
       <YourRunningFights accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId} />
     )}

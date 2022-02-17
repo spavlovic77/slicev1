@@ -206,20 +206,20 @@ a {
 }
 
 
-#button-ok{
+#button-unreport button{
   background-color: greenyellow;
   border: solid 1px grey;
   padding: 5px 5px;
 }
-#button-f{
+#button-report button{
   background-color: red;
   border: solid 1px grey;
   padding: 5px 5px;
 }
-#button-ok:hover{
+#button-report button:hover{
   color: orange;
 }
-#button-f:hover{
+#button-unreport button:hover{
   color: white;
 }
 #__next > div.map-back {
@@ -301,6 +301,14 @@ div.progress {
   color: slategray;
   text-decoration: none;
 }
-
+.numbers-flex {
+  display: flex;
+}
+.numbers-flex li {
+  margin: 2px;
+}
+.registerOrMint li {
+  margin: 2px;
+}
 
 

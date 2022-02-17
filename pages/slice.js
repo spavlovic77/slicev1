@@ -7,6 +7,7 @@ import polygonFight from '../lib/contracts/Fight.json'
 import { Table, TabList, Tab, Icon, Button } from 'web3uikit';
 import Web3 from 'web3';
 import Link from 'next/link'
+import { BigNumber } from "bignumber.js";
 
          
 
@@ -23,7 +24,7 @@ const fetcherFightDetails =  async(web3, accounts, all) =>  {
   for (let i=0; i<all.length; i++) {
    const fight = await new web3.eth.Contract(polygonFight.abi,all[i].fightContract)
    const adminFights =  await fight.methods.getFightParams2().call({ from: accounts[0] }).then(data => {
-    listN.push({contract: all[i].fightContract, created: data[2], uscs: data[5], charity: data[6], usersSlice: data[7], actTimer: data[8]})
+    listN.push({contract: all[i].fightContract, created: data[2], uscs: Number(data[5]), charity: data[6], usersSlice: data[7], actTimer: data[8]})
   })
 }
   return listN
@@ -34,7 +35,7 @@ const fetcherFightDetails =  async(web3, accounts, all) =>  {
     for (let i=0; i<all.length; i++) {
      const fight = await new web3.eth.Contract(polygonFight.abi,all[i].fightContract)
      const adminFights =  await fight.methods.showBalance().call({ from: accounts[0] }).then(data => {
-      listN.push({contract: all[i].fightContract, lspBalance: data[2], created: data[4], actTimer: data[5]})
+      listN.push({contract: all[i].fightContract, lspBalance: Number(Web3.utils.fromWei(data[2])), created: data[4], actTimer: data[5]})
     })
     }
     return listN
@@ -45,14 +46,18 @@ const { data: detail } = useSWR(all ? [web3, accounts, all, 'detailsOfFights'] :
 const { data: lastSpotBalance } = useSWR(all ? [web3, accounts, all, 'lastSpotBalance'] : null, lsp)
 
 if (lastSpotBalance!=undefined) {
-  const dataFeed = lastSpotBalance.filter(a => a.lspBalance!='0')
-  .map((item) => [<span key={0}></span>, <Link key={1} href="/fights/[address]" as={`/fights/${item.contract}`}><a>{item.contract.substring(0,6)+'...'+item.contract.substring(38,42)}</a></Link>, <span key={2}>{Web3.utils.fromWei(item.lspBalance, 'ether')}</span>, <span key={3}></span>])
+  const dataFeed = lastSpotBalance
+  .filter(a => a.lspBalance!='0')
   .sort((a,b) => b.lspBalance > a.lspBalance ? 1 : -1)
+  .map((item) => [<span key={0}></span>, <Link key={1} href="/fights/[address]" as={`/fights/${item.contract}`}><a>{item.contract.substring(0,6)+'...'+item.contract.substring(38,42)}</a></Link>, <span key={2}>{item.lspBalance}</span>, <span key={3}></span>])
+  
 }
 if (detail!=undefined) {
-  const dataFeed2 = detail.filter(a => a.actTimer!='0')
-  .map((item) => [<span key={0}></span>, <Link key={10}href="/fights/[address]" as={`/fights/${item.contract}`}><a>{item.contract.substring(0,6)+'...'+item.contract.substring(38,42)}</a></Link>, <span key={20}>{item.uscs+' %'}</span>, <span key={30}></span>])
-  .sort((a,b) => b.uscs > a.uscs ? -1 : 1)
+  const dataFeed2 = detail
+  .filter(a => a.actTimer!='0')
+  .sort((a,b) => b.uscs > a.uscs ? 1 : -1)
+  .map((item) => [<span key={0}></span>, <Link key={10}href="/fights/[address]" as={`/fights/${item.contract}`}><a>{item.contract.substring(0,6)+'...'+item.contract.substring(38,42)}</a></Link>, <span key={20}>{item.uscs +' %'}</span>, <span key={30}></span>])
+
 }
 
   const [freshMintData, setFreshMintData] = useState(true)
@@ -88,7 +93,6 @@ if (detail!=undefined) {
     };
 
 
-console.log({detail})
   return (
     <>
       <Navbar onMint={handleMint} showSpinnerMinter={showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>
@@ -156,7 +160,7 @@ console.log({detail})
 
 const sli = () => (
   <Web3Container
-    renderLoading={() => <div><Alert variant='warning'>Loading Dapp Page...</Alert></div>}
+    renderLoading={() => <div><Alert variant='warning'>Loading Dapp Page...Check your Metamask please</Alert></div>}
     render={({ accounts, slice, fightFactory, web3, networkId }) => (
       <Slice accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>
     )}

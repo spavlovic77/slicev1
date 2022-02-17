@@ -32,7 +32,8 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
     const [freshData, setFreshData] = useState(true)
     const [charity, setCharity] = useState(undefined)
     const [shortUrl, setShortUrl] = useState()
-  
+    const [isReg, setIsRegistered] = useState()
+    const [whitel, setIsWL] = useState()
   
 
     useEffect(() => {
@@ -86,6 +87,14 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
               const lsb = await fightContract.methods.showBalance().call({ from: accounts[0] })
               .then(data => {
                 setLastSpotPot(data[2])
+              })
+              const wlist = await slice.methods.wl(accounts[0]).call({ from: accounts[0] })
+              .then(data => {
+                setIsWL(data)
+              })
+              const reg = await slice.methods.isRegistered(accounts[0]).call({ from: accounts[0] })
+              .then(data => {
+                setIsRegistered(data)
               })
               const staked = await slice.methods.getStakedBalance().call({ from: accounts[0] })
               .then(data => {
@@ -239,14 +248,14 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
     <>
 
       {loading  && <Navbar showSpinnerMinter = {showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} fightFactory={fightFactory} address={address} accounts={accounts} slice={slice} web3={web3} networkId={networkId}/>}
-      {(loading && timer && startTime)  && <Content showSpinnerPot={showSpinnerPot} showSpinnerWith={showSpinnerWith} shortUrl={shortUrl} showSpinnerVote1={showSpinnerVote1} showSpinnerVote2={showSpinnerVote2} showSpinnerStake={showSpinnerStake} showSpinnerUnstake={showSpinnerUnstake} charity={charity} startTime={startTime} timer={timer} lsb={lsb} votes1={votes1} votes2={votes2} onVote1={handleVote1} onVote2={handleVote2} accounts={accounts} web3={web3} address ={address} onWithdraw={handleOnWithdraw} onPotWithdraw={handlePotWithraw} onStaking={handleStaking} onUnStaking={handleUnStaking} fightData={fightData} pendingWithdrawal={pendingWithdrawal} staked={stakedInFight} vSliceBalance={vSliceBalance} charityBalance={charityBalance}/>}
+      {(loading && timer && startTime)  && <Content whitel={whitel} isReg={isReg} showSpinnerPot={showSpinnerPot} showSpinnerWith={showSpinnerWith} shortUrl={shortUrl} showSpinnerVote1={showSpinnerVote1} showSpinnerVote2={showSpinnerVote2} showSpinnerStake={showSpinnerStake} showSpinnerUnstake={showSpinnerUnstake} charity={charity} startTime={startTime} timer={timer} lsb={lsb} votes1={votes1} votes2={votes2} onVote1={handleVote1} onVote2={handleVote2} accounts={accounts} web3={web3} address ={address} onWithdraw={handleOnWithdraw} onPotWithdraw={handlePotWithraw} onStaking={handleStaking} onUnStaking={handleUnStaking} fightData={fightData} pendingWithdrawal={pendingWithdrawal} staked={stakedInFight} vSliceBalance={vSliceBalance} charityBalance={charityBalance}/>}
       {loading  && <Spots showFlipModal={showFlipModal} buyModalShow={buyModalShow} showSpinnerReset={showSpinnerReset} showSpinnerReserve={showSpinnerReserve} showSpinnerBuy={showSpinnerBuy} showSpinnerFlip={showSpinnerFlip} accounts={accounts} onBuySpot={handleBuySpot} onSpotReservation={handleSpotReservation} onSpotFlip={handleSpotFlip} onSpotReset={handleSpotReset} fightData={fightData} spots={spots} address={addr}/>}
     </>
   )
 }
 const index = () => (
   <Web3Container
-    renderLoading={() => <div><Alert variant='warning'>Loading Dapp Page...</Alert></div>}
+    renderLoading={() => <div><Alert variant='warning'>Loading Dapp Page...Check your Metamask please</Alert></div>}
     render={({ accounts, slice, fightFactory, web3, networkId }) => (
       <Fight accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId} />
     )}

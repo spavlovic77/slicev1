@@ -31,9 +31,7 @@ const details =  async(slice, accounts, stakedByFights) =>  {
 
 const { data: stakedByFights, errorStaked } = useSWR([slice, accounts,address, 'allStakedFights'], allFights)
 const { data: mintersData } = useSWR(stakedByFights ? [slice, accounts, stakedByFights, 'stakedByFights'] : null, details)
-console.log({stakedByFights})
-console.log({mintersData})
-
+console.log({stakedByFights}, {mintersData})
 const [bad, setBadActor] = useState(false)
 const [good, setGoodActor] = useState(false)
 
@@ -52,7 +50,8 @@ useEffect(() => {
     Marker(); 
     function Marker() {
       if (mintersData) {
-        mintersData.filter(f => f.contract != '0x0000000000000000000000000000000000000000').map(minter => { 
+        mintersData
+        .map((minter, index) => { 
         const LT= minter.Lat
         const a= LT.replace(/[']/g, '')
         const LO= minter.Lon
@@ -63,47 +62,51 @@ useEffect(() => {
         const location = new google.maps.LatLng(a, b);
         const addr= minter.contract
         const white= minter.Whitelisted
-        addMarker(location, Nick, reported, goodPoints, addr, white);
+        const ind=index
+        addMarker(ind, location, Nick, reported, goodPoints, addr, white);
       })
-    } else {console.log('wtf')}
+    } else {console.log('no data')}
     }
 
 
-    function addMarker(location, Nick, reported, gPoints, contract, white) {
-      if (white ==true) {const label='Good'} else {const label='Blacklisted'}
+    function addMarker(ind, location, Nick, reported, gPoints, contract, white) {
+      
+      const Report = async() => {
+        await slice.methods.reportBadActor(contract).send({ from: accounts[0]})
+        .then(setBadActor(!bad))}
+      
+        const goodPoints = async() => {
+          await slice.methods.reportGoodActor(contract).send({ from: accounts[0], value: priceOfGood})
+          .then(setGoodActor(!good))}
+
       const addrShortStart= contract.substring(0,6)
       const addrShortEnd= contract.substring(38,42)
+      let label;
+      if (white==true) {label='Good'} else {label='Blacklisted'}
+      
       const marker = new google.maps.Marker({
           position: location,
           map: map
       });
+     
       var infowindow = new google.maps.InfoWindow({
         content: " "
       });
       google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map, marker); 
+      google.maps.event.addListener(infowindow, "domready", function () {
         infowindow.setContent('<p><b>Nickname:</b> '+Nick+'</p>' +
         '<p><b>Address: </b>'+addrShortStart+'...'+addrShortEnd+''+
         '<p><b>Health:</b> '+label+'</p>'+
-                '<p><b>Reported:</b> '+reported+'/'+sliceParameters[2]+' <button id="button-f" onclick="Report('+contract+')">Report</button></p>' +
-                '<p><b>Good points:</b> '+gPoints+'/'+sliceParameters[3]+' <button id="button-ok" onclick="goodPoints('+contract+')">Unreport</button></p>'
+                '<p id="button-report"><b>Reported:</b> '+reported+'/'+sliceParameters[2]+' <button id="button-f'+ind+'" onclick="Report('+contract+')">Report</button></p>' +
+                '<p id="button-unreport"><b>Good points:</b> '+gPoints+'/'+sliceParameters[3]+' <button id="button-ok'+ind+'" onclick="goodPoints('+contract+')">Unreport</button></p>'
                     );
-
-        infowindow.open(map, this); 
-        google.maps.event.addListener(infowindow, "domready", function () {
-
-          document.getElementById("button-f").onclick=Report
-          document.getElementById("button-ok").onclick=goodPoints
-        });
-        const Report = async() => {
-          await slice.methods.reportBadActor(contract).send({ from: accounts[0]})
-          .then(setBadActor(!bad))}
-        
-          const goodPoints = async() => {
-            await slice.methods.reportGoodActor(contract).send({ from: accounts[0], value: priceOfGood})
-            .then(setGoodActor(!good))}
+                    document.getElementById('button-f'+`${ind}`).onclick=Report
+                    document.getElementById('button-ok'+`${ind}`).onclick=goodPoints       
       });
-    }
+      });
 
+    }
   }, [mintersData, good, bad]);  
 });
 
@@ -159,6 +162,7 @@ const handleMint = async () => {
   })
   };
 
+  console.log({mintersData})
   return (
     <>    
       {error && <div>Error.....</div>}
@@ -171,11 +175,10 @@ const handleMint = async () => {
 
 const index = () => (
   <Web3Container
-    renderLoading={() => <div><Alert variant='warning'>Loading Dapp Page...</Alert></div>}
+    renderLoading={() => <div><Alert variant='warning'>Loading Dapp Page...Check your Metamask please</Alert></div>}
     render={({ accounts, slice, fightFactory, web3, networkId }) => (
       <Map accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId} />
     )}
   />
 )
 export default index
-
