@@ -4,8 +4,8 @@ import Alert from 'react-bootstrap/Alert'
 import { Loader } from '@googlemaps/js-api-loader';
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 import useSWR from "swr";
+import Spinner from 'react-bootstrap/Spinner'
 
 
 const Map = ({ accounts, slice, fightFactory, networkId }) => {

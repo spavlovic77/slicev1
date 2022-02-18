@@ -1,13 +1,12 @@
 import Web3Container from '../lib/infra/Web3Containter'
 import Alert from 'react-bootstrap/Alert'
 import Navbar from '../lib/components/Navbar'
-import Footer from '../lib/components/Footer'
-import AdminFights from '../lib/components/AdminFights'
 import StakedFights from '../lib/components/StakedFights'
 import useSWR from "swr";
 import polygonFight from '../lib/contracts/Fight.json'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import Spinner from 'react-bootstrap/Spinner'
 
 const fetcherStakedByStaker = async(slice, accounts) =>{
   const req =  await slice.methods.getStakedByStaker(accounts[0]).call({ from: accounts[0] }).then((data) => {return data})

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import useSWR from "swr";
 import AdminFightsNew from '../lib/components/AdminFightsNew'
 import Navbar from '../lib/components/Navbar'
+import Spinner from 'react-bootstrap/Spinner'
 
 const fetcherFightsByAdmin = async(fightFactory, accounts) => {
   const fightsByAdmin = await fightFactory.methods.getFightsByAdmin(accounts[0]).call({ from: accounts[0] }).then((data) => {return data})

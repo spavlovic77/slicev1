@@ -7,7 +7,7 @@ import polygonFight from '../lib/contracts/Fight.json'
 import { Table, TabList, Tab, Icon, Button } from 'web3uikit';
 import Web3 from 'web3';
 import Link from 'next/link'
-import { BigNumber } from "bignumber.js";
+import Spinner from 'react-bootstrap/Spinner'
 
          
 

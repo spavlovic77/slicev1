@@ -12,6 +12,7 @@ import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import { Table } from 'web3uikit';
+import Spinner from 'react-bootstrap/Spinner'
 
 
 const fetcherFightsByAdmin = async(fightFactory, accounts) => {
