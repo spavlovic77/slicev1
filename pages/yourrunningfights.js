@@ -13,6 +13,8 @@ import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import { Table } from 'web3uikit';
 import Spinner from 'react-bootstrap/Spinner'
+import Tab from 'react-bootstrap/Tab'
+import Tabs from 'react-bootstrap/Tabs'
 
 
 const fetcherFightsByAdmin = async(fightFactory, accounts) => {
@@ -147,67 +149,77 @@ console.log({dataFeed3})
     </div>
 
 
-
-
     <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton>
                 <Modal.Title>Change fight parameters (%)</Modal.Title>
                 </Modal.Header>
                 <Modal.Body> 
                 <Form>
-                    <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Flippers slice from the spot price increase</Form.Label>
-                      <Form.Control type="text" placeholder={share} onChange={(e) => setShare(e.target.value)} />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Flipper gets back when flipped</Form.Label>
-                      <Form.Control type="text" placeholder={cashB} onChange={(e) => setCashB(e.target.value)} />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Influencers slice for each created spot</Form.Label>
-                      <Form.Control type="text" placeholder={influCrea} onChange={(e) => setInfluCrea(e.target.value)} />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Users slice for each created spot</Form.Label>
-                      <Form.Control type="text" placeholder={usersCrea} onChange={(e) => setUsersCrea(e.target.value)} />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Developers 1 slice for each created spot</Form.Label>
-                      <Form.Control type="text" placeholder="1" disabled/>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Developers 2 slice for each created spot</Form.Label>
-                      <Form.Control type="text" placeholder="5" disabled/>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Last spot Pot slice for each created spot</Form.Label>
-                      <Form.Control type="text" placeholder="30" disabled/>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Influencers slice for each flipped spot</Form.Label>
-                      <Form.Control type="text" placeholder={influFlip} onChange={(e) => setInfluFlip(e.target.value)} />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Userss slice for each flipped spot</Form.Label>
-                      <Form.Control type="text" placeholder={usersFlip} onChange={(e) => setUsersFlip(e.target.value)} />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Charitys slice for each flipped spot</Form.Label>
-                      <Form.Control type="text" placeholder={charFlip} onChange={(e) => setCharFlip(e.target.value)} />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Max count of users</Form.Label>
-                      <Form.Control type="text" placeholder={maxUsers} onChange={(e) => setMaxUsers(e.target.value)} />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>How long the spot will not be flippable in seconds</Form.Label>
-                      <Form.Control type="text" placeholder={spotBusy} onChange={(e) => setSpotBusy(e.target.value)} />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>How long the spot will be reserved after spot reservation</Form.Label>
-                      <Form.Control type="text" placeholder={spotReserv} onChange={(e) => setSpotReserv(e.target.value)} />
-                    </Form.Group>
-                      </Form>
+                <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
+                    <Tab eventKey="flipper" title="Flipper share">
+                        <Form.Group className="mb-3" controlId="input1">
+                          <Form.Label>Flipper share from the spot price increase</Form.Label>
+                          <Form.Control type="text" placeholder={share} onChange={(e) => setShare(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="input1">
+                          <Form.Label>Flipper gets back when flipped</Form.Label>
+                          <Form.Control type="text" placeholder={cashB} onChange={(e) => setCashB(e.target.value)} />
+                        </Form.Group>
+                    </Tab>
+                    <Tab eventKey="create" title="Spot Share">
+                        <Form.Group className="mb-3" controlId="input1">
+                          <Form.Label>Influencers share for each spot</Form.Label>
+                          <Form.Control type="text" placeholder={influCrea} onChange={(e) => setInfluCrea(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="input1">
+                          <Form.Label>Users share for each spot</Form.Label>
+                          <Form.Control type="text" placeholder={usersCrea} onChange={(e) => setUsersCrea(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="input1">
+                          <Form.Label>Platform share for each spot</Form.Label>
+                          <Form.Control type="text" placeholder="1" disabled/>
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="input1">
+                          <Form.Label>Developer share for each spot</Form.Label>
+                          <Form.Control type="text" placeholder="5" disabled/>
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="input1">
+                          <Form.Label>Last spot Pot share for each spot</Form.Label>
+                          <Form.Control type="text" placeholder="30" disabled/>
+                        </Form.Group>
+                        <span style={{color: 'orange'}}>The sum must be 100%. Do not use decimals.</span>
+                      </Tab>
+                    <Tab eventKey="flip" title="Flip Share">
+                        <Form.Group className="mb-3" controlId="input1">
+                          <Form.Label>Influencers share for each flipped spot</Form.Label>
+                          <Form.Control type="text" placeholder={influFlip} onChange={(e) => setInfluFlip(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="input1">
+                          <Form.Label>Users share for each flipped spot</Form.Label>
+                          <Form.Control type="text" placeholder={usersFlip} onChange={(e) => setUsersFlip(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="input1">
+                          <Form.Label>Charity share for each flipped spot</Form.Label>
+                          <Form.Control type="text" placeholder={charFlip} onChange={(e) => setCharFlip(e.target.value)} />
+                        </Form.Group>
+                        <span style={{color: 'orange'}}>The sum must be 100%. Do not use decimals.</span>
+                    </Tab>
+                    <Tab eventKey="others" title="Others">
+                        <Form.Group className="mb-3" controlId="input1">
+                          <Form.Label>Max count of Staking users</Form.Label>
+                          <Form.Control type="text" placeholder={maxUsers} onChange={(e) => setMaxUsers(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="input1">
+                          <Form.Label>How long the spot will not be flippable in seconds</Form.Label>
+                          <Form.Control type="text" placeholder={spotBusy} onChange={(e) => setSpotBusy(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="input1">
+                          <Form.Label>How long the spot will be reserved after spot reservation</Form.Label>
+                          <Form.Control type="text" placeholder={spotReserv} onChange={(e) => setSpotReserv(e.target.value)} />
+                        </Form.Group>
+                    </Tab>
+                </Tabs>
+                </Form>
                 </Modal.Body>
                 <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
