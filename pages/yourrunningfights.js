@@ -162,7 +162,7 @@ console.log({dataFeed3})
                       <Form.Control type="text" placeholder={cashB} onChange={(e) => setCashB(e.target.value)} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Influencerss slice for each created spot</Form.Label>
+                      <Form.Label>Influencers slice for each created spot</Form.Label>
                       <Form.Control type="text" placeholder={influCrea} onChange={(e) => setInfluCrea(e.target.value)} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="input1">
@@ -192,10 +192,6 @@ console.log({dataFeed3})
                     <Form.Group className="mb-3" controlId="input1">
                       <Form.Label>Charitys slice for each flipped spot</Form.Label>
                       <Form.Control type="text" placeholder={charFlip} onChange={(e) => setCharFlip(e.target.value)} />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="input1">
-                      <Form.Label>Last spot Pot slice for each flipped spot</Form.Label>
-                      <Form.Control type="text" placeholder="30" disabled/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="input1">
                       <Form.Label>Max count of users</Form.Label>
