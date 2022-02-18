@@ -92,11 +92,14 @@ const YourRunningFights = ({ fightFactory, web3, accounts,slice, networkId  }) =
       const [spotReserv, setSpotReserv] = useState()
       const [addr, setAddress] = useState()
 
+      const [configSpinner, setConfigSpinner] = useState()
       const handleChangeFightParams = async (addr, accounts, web3) => {
+        setConfigSpinner(true)
         const fight = new web3.eth.Contract(polygonFight.abi, addr);
               await fight.methods.sF(share, influFlip, cashB,usersFlip, charFlip, influCrea, usersCrea, maxUsers, spotBusy, spotReserv).send({ from: accounts[0] })
               .on('receipt', receipt => {
                 console.log('fight params updated')
+                setConfigSpinner(false)
                 handleClose()
               })
             };
@@ -225,9 +228,16 @@ console.log({dataFeed3})
                 <Button variant="secondary" onClick={handleClose}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={()=>handleChangeFightParams(addr, accounts, web3)}>
+                {!configSpinner &&<Button variant="secondary" onClick={()=>handleChangeFightParams(addr, accounts, web3)}>
                     Save parameters
-                </Button>
+                </Button>}
+                {configSpinner && <Spinner
+                                        as="span"
+                                        animation="grow"
+                                        size="sm"
+                                        role="status"
+                                        aria-hidden="true"
+                                        />}
                 </Modal.Footer>
                 </Modal>
 
