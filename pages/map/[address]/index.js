@@ -159,6 +159,7 @@ const handleMint = async () => {
   await slice.methods.vSliceMinting_ExW().send({ from: accounts[0] })
   .on('receipt', receipt => {
     setShowSpinnerMinter(false)
+    setFreshMintData(!freshMintData)
   })
   };
 

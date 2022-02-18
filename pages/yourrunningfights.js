@@ -73,6 +73,7 @@ const YourRunningFights = ({ fightFactory, web3, accounts,slice, networkId  }) =
         await slice.methods.vSliceMinting_ExW().send({ from: accounts[0] })
         .on('receipt', receipt => {
           setShowSpinnerMinter(false)
+          setFreshMintData(!freshMintData)
         })
         };
 

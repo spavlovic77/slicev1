@@ -39,8 +39,11 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
 
     useEffect(() => {
       const init = async () => {
+        if (networkId==5777 || 8001 || 97) {
           const fight = new web3.eth.Contract (polygonFight.abi,address)
+          
           setFightContract(fight)
+        }else {alert('Not Supported network')}
       };
       init();
     }, []);

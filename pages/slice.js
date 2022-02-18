@@ -89,18 +89,18 @@ if (detail!=undefined) {
     await slice.methods.vSliceMinting_ExW().send({ from: accounts[0] })
     .on('receipt', receipt => {
       setShowSpinnerMinter(false)
+      setFreshMintData(!freshMintData)
     })
     };
 
 
   return (
     <>
-      <Navbar onMint={handleMint} showSpinnerMinter={showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>
-        <div className='tabs-wrapper'>
+      {loadingMintData && <Navbar onMint={handleMint} showSpinnerMinter={showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
+       <div className='tabs-wrapper'>
         
-        {!lastSpotBalance && <div className='fight-spinner'><Spinner animation="grow" /> Loading fights from blockchain....</div>}
-        {!detail && <div className='fight-spinner'><Spinner animation="grow" /> Loading fight from blockchain....</div>}
-          <TabList
+       {(!lastSpotBalance || !detail) &&<div className='fight-spinner'><Spinner animation="grow" /> Loading fights from blockchain....</div>}
+        {(lastSpotBalance && detail) && <TabList
                 defaultActiveKey={1}
                 tabStyle="bulbUnion"
               >
@@ -152,7 +152,7 @@ if (detail!=undefined) {
                     Comming soon  
                   </div>
                 </Tab>
-              </TabList>
+              </TabList>}
   </div>
 </>
   )

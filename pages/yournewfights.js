@@ -45,6 +45,7 @@ const { data: fights, errorfights } = useSWR([fightFactory, accounts, 'fightsByA
         await slice.methods.vSliceMinting_ExW().send({ from: accounts[0] })
         .on('receipt', receipt => {
           setShowSpinnerMinter(false)
+          setFreshMintData(!freshMintData)
         })
         };
   
