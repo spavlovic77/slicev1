@@ -98,7 +98,8 @@ if (detail!=undefined) {
       <Navbar onMint={handleMint} showSpinnerMinter={showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>
         <div className='tabs-wrapper'>
         
-        
+        {!lastSpotBalance && <div className='fight-spinner'><Spinner animation="grow" /> Loading fights from blockchain....</div>}
+        {!detail && <div className='fight-spinner'><Spinner animation="grow" /> Loading fight from blockchain....</div>}
           <TabList
                 defaultActiveKey={1}
                 tabStyle="bulbUnion"

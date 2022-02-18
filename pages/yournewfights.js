@@ -52,7 +52,7 @@ const { data: fights, errorfights } = useSWR([fightFactory, accounts, 'fightsByA
         <>
         
          {loadingMintData && <Navbar showSpinnerMinter={showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
-         {!fights && 'Loading.....'}
+         {!fights && <div className='fight-spinner'><Spinner animation="grow" /> Loading new fights from blockchain....</div>}
         {fights && <AdminFightsNew newFights={fights.filter(f => f.active===false)} fightFactory={fightFactory} web3={web3} accounts={accounts}/>}
         
         </>

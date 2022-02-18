@@ -76,10 +76,7 @@ const Yourfights = ({ accounts, slice, fightFactory, web3, networkId }) => {
     <>
      {loadingMintData && <Navbar showSpinnerMinter={showSpinnerMinter} onMint={handleMint} staked={staked} vSliceBalance={vSliceBalance} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
     <div >
-      {!all && 'Loading...'}
-      {!detail && 'Loading...'}
-      {errorAll && 'Error during loading list of fights...'}
-      {errorDetail && 'Error during loading details...'}
+    {!detail && <div className='fight-spinner'><Spinner animation="grow" /> Loading fights from blockchain....</div>}
       {detail && <StakedFights  onUnstake={handleUnStaking} web3={web3} stakedFights={detail.filter(f => f.Staked>0)} slice={slice} accounts={accounts}/>}
     </div>
     </>

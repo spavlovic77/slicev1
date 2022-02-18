@@ -127,8 +127,9 @@ console.log({dataFeed3})
   return (
     <>
         {loadingMintData && <Navbar showSpinnerMinter={showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
-        
+
         <div className='tabs-wrapper'>
+        {!details && <div className='fight-spinner'><Spinner animation="grow" /> Loading fights from blockchain....</div>}
           {details && <Table
               columnsConfig="80px 3fr 2fr 80px"
               data={dataFeed3}

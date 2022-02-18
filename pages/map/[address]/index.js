@@ -165,9 +165,8 @@ const handleMint = async () => {
   console.log({mintersData})
   return (
     <>    
-      {error && <div>Error.....</div>}
-      {!priceOfGood && <div>Loading price....</div>}
       {loadingMintData && <Navbar showSpinnerMinter={showSpinnerMinter} networkId={networkId} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory}/>}
+      {!priceOfGood && <div className='fight-spinner'><Spinner animation="grow" /> Loading data from blockchain....</div>}
       <div id="map" ref={googlemap} />
     </>
   )

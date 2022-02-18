@@ -310,5 +310,9 @@ div.progress {
 .registerOrMint li {
   margin: 2px;
 }
-
-
+.spinner-fight {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
