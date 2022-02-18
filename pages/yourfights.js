@@ -85,7 +85,7 @@ const Yourfights = ({ accounts, slice, fightFactory, web3, networkId }) => {
 const list = () => (
 
   <Web3Container
-    renderLoading={() => <div><Alert variant='warning'>Loading Dapp Page...Check your Metamask please</Alert></div>}
+    renderLoading={() => <div className='fight-spinner'><Spinner animation="grow" /> Connecting to blockchains....</div>}
     render={({ accounts, slice, fightFactory, web3, networkId}) => (
       <Yourfights accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId} />
     )}
