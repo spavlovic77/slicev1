@@ -48,13 +48,39 @@ const YourRunningFights = ({ fightFactory, web3, accounts,slice, networkId  }) =
       const [loadingMintData, setLoadingMintData] = useState(false)
       const [staked, setStaked] = useState(undefined)
       const [vSliceBalance, setVSliceBalance] = useState(undefined)
+      const [whitel, setIsWL] = useState()
+      const [isReg, setIsRegistered] = useState()
+      const [minter, setMinter] = useState()
+      const [mintingSpeed, setMintingSpeed] = useState()
+      const [start, setStart] = useState()
+
       useEffect(() => {
         const init = async () => {
           try { 
               const vSliceBalance = await slice.methods.vSliceViewBalance(accounts[0]).call({ from: accounts[0] })
               .then(data => {
                 setVSliceBalance(data)
-              })              
+              })   
+              const wlist = await slice.methods.wl(accounts[0]).call({ from: accounts[0] })
+              .then(data => {
+                setIsWL(data)
+              })
+              const reg = await slice.methods.isRegistered(accounts[0]).call({ from: accounts[0] })
+              .then(data => {
+                setIsRegistered(data)
+              })
+              const Minter = await slice.methods.getMinter(accounts[0]).call({ from: accounts[0] })
+              .then(data => {
+                setMinter(data)
+              })
+              const MintSpeed = await slice.methods.getMintingSpeed().call({ from: accounts[0] })
+              .then(data => {
+                setMintingSpeed(data)
+              })
+              const start = await slice.methods.getStart().call({ from: accounts[0] })
+              .then(data => {
+                setStart(data)
+              })           
               const stakedSliceBalance = await slice.methods.getStakedBalance().call({ from: accounts[0] })
               .then(data => {
                 setStaked(data)
@@ -133,7 +159,7 @@ const YourRunningFights = ({ fightFactory, web3, accounts,slice, networkId  }) =
 console.log({dataFeed3})
   return (
     <>
-        {loadingMintData && <Navbar showSpinnerMinter={showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
+        {loadingMintData && <Navbar whitel={whitel} isReg={isReg} minter={minter} mintingSpeed={mintingSpeed} start={start} showSpinnerMinter={showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
 
         <div className='tabs-wrapper'>
         {!details && <div className='fight-spinner'><Spinner animation="grow" /> Loading fights from blockchain....</div>}
