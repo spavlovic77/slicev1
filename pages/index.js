@@ -7,11 +7,14 @@ import { useState } from 'react'
 const index = () => {
 
   const [metamask, setMetamask] = useState()
-  const isMetaMaskInstalled = async() => {
-    const provider = await detectEthereumProvider();
-    if (provider) {setMetamask(true)} else {setMetamask(false)}
-  };
-  isMetaMaskInstalled();
+    useEffect(() => {
+      const isMetaMaskInstalled = async() => {
+        const provider = await detectEthereumProvider();
+        if (provider) {setMetamask(true)} else {setMetamask(false)}
+      };
+      isMetaMaskInstalled();
+    }, [])
+
   return (
     <>
     <div className='index-container'>
@@ -21,7 +24,7 @@ const index = () => {
           <section>
               {metamask               
               ? <button className='btn-start-app'><Link href='/slice'><a>Launch app</a></Link></button> 
-              : <button className='btn-start-app'><a target="_blank" href='https://metamask.io/'>Install MetaMask</a></button>}
+              : <button className='btn-start-app'><a target="_blank" href='https://metamask.io/' rel="noreferrer">Install MetaMask</a></button>}
           </section>
     </div> 
     </>
