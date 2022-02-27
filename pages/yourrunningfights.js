@@ -159,11 +159,24 @@ const YourRunningFights = ({ fightFactory, web3, accounts,slice, networkId  }) =
 console.log({dataFeed3})
   return (
     <>
-        {loadingMintData && <Navbar whitel={whitel} isReg={isReg} minter={minter} mintingSpeed={mintingSpeed} start={start} showSpinnerMinter={showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
+    {(!details && !loadingMintData) && <div
+      style={{
+        backgroundColor: '#ECECFE',
+        borderRadius: '8px',
+        padding: '20px'
+      }}
+    >
+      <Loading
+        size={40}
+        spinnerColor="#2E7DAF"
+        text="Loading data from blockchains... "
+      />
+    </div>}
+        {(details && loadingMintData) && <Navbar whitel={whitel} isReg={isReg} minter={minter} mintingSpeed={mintingSpeed} start={start} showSpinnerMinter={showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
 
         <div className='tabs-wrapper'>
-        {!details && <div className='fight-spinner'><Spinner animation="grow" /> Loading fights from blockchain....</div>}
-          {details && <Table
+        
+          {(details && loadingMintData) && <Table
               columnsConfig="80px 3fr 2fr 80px"
               data={dataFeed3}
               header={[
