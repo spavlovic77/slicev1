@@ -4,7 +4,7 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import { useState, useEffect } from 'react'
 
 
-const index = () => {
+const Index = () => {
 
   const [metamask, setMetamask] = useState()
     useEffect(() => {
@@ -31,4 +31,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Index
