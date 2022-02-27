@@ -7,6 +7,7 @@ import polygonFight from '../lib/contracts/Fight.json'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Spinner from 'react-bootstrap/Spinner'
+import { Loading } from 'web3uikit';
 
 const fetcherStakedByStaker = async(slice, accounts) =>{
   const req =  await slice.methods.getStakedByStaker(accounts[0]).call({ from: accounts[0] }).then((data) => {return data})
@@ -100,10 +101,23 @@ const Yourfights = ({ accounts, slice, fightFactory, web3, networkId }) => {
 
   return (
     <>
-     {loadingMintData && <Navbar whitel={whitel} isReg={isReg} minter={minter} mintingSpeed={mintingSpeed} start={start} showSpinnerMinter={showSpinnerMinter} onMint={handleMint} staked={staked} vSliceBalance={vSliceBalance} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
+    {(!detail && !loadingMintData) && <div
+          style={{
+            backgroundColor: '#ECECFE',
+            borderRadius: '8px',
+            padding: '20px'
+          }}
+        >
+          <Loading
+            size={40}
+            spinnerColor="#2E7DAF"
+            text="Loading data from blockchains... "
+          />
+        </div>}
+     {(detail && loadingMintData) && <Navbar whitel={whitel} isReg={isReg} minter={minter} mintingSpeed={mintingSpeed} start={start} showSpinnerMinter={showSpinnerMinter} onMint={handleMint} staked={staked} vSliceBalance={vSliceBalance} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
     <div >
-    {!detail && <div className='fight-spinner'><Spinner animation="grow" /> Loading fights from blockchain....</div>}
-      {detail && <StakedFights  onUnstake={handleUnStaking} web3={web3} stakedFights={detail.filter(f => f.Staked>0)} slice={slice} accounts={accounts}/>}
+    
+      {(detail && loadingMintData) && <StakedFights  onUnstake={handleUnStaking} web3={web3} stakedFights={detail.filter(f => f.Staked>0)} slice={slice} accounts={accounts}/>}
     </div>
     </>
   )
@@ -112,7 +126,19 @@ const Yourfights = ({ accounts, slice, fightFactory, web3, networkId }) => {
 const list = () => (
 
   <Web3Container
-    renderLoading={() => <div className='fight-spinner'><Spinner animation="grow" /> Connecting to blockchains....</div>}
+    renderLoading={() => <div
+      style={{
+        backgroundColor: '#ECECFE',
+        borderRadius: '8px',
+        padding: '20px'
+      }}
+    >
+      <Loading
+        size={40}
+        spinnerColor="#2E7DAF"
+        text="Connecting to Blockchains... "
+      />
+    </div>}
     render={({ accounts, slice, fightFactory, web3, networkId}) => (
       <Yourfights accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId} />
     )}

@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import useSWR from "swr";
 import Spinner from 'react-bootstrap/Spinner'
+import { Loading } from 'web3uikit';
 
 
 const Map = ({ accounts, slice, fightFactory, networkId }) => {
@@ -191,8 +192,21 @@ const handleMint = async () => {
   console.log({mintersData})
   return (
     <>    
-      {loadingMintData && <Navbar whitel={whitel} isReg={isReg} minter={minter} mintingSpeed={mintingSpeed} start={start} showSpinnerMinter={showSpinnerMinter} networkId={networkId} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory}/>}
-      {!priceOfGood && <div className='fight-spinner'><Spinner animation="grow" /> Loading data from blockchain....</div>}
+    {(!priceOfGood && !loadingMintData) && <div
+          style={{
+            backgroundColor: '#ECECFE',
+            borderRadius: '8px',
+            padding: '20px'
+          }}
+        >
+          <Loading
+            size={40}
+            spinnerColor="#2E7DAF"
+            text="Loading data from blockchains... "
+          />
+        </div>}
+      {(priceOfGood && loadingMintData) && <Navbar whitel={whitel} isReg={isReg} minter={minter} mintingSpeed={mintingSpeed} start={start} showSpinnerMinter={showSpinnerMinter} networkId={networkId} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory}/>}
+      
       <div id="map" ref={googlemap} />
     </>
   )
@@ -200,7 +214,19 @@ const handleMint = async () => {
 
 const index = () => (
   <Web3Container
-    renderLoading={() => <div className='fight-spinner'><Spinner animation="grow" /> Connecting to blockchains....</div>}
+    renderLoading={() => <div
+      style={{
+        backgroundColor: '#ECECFE',
+        borderRadius: '8px',
+        padding: '20px'
+      }}
+    >
+      <Loading
+        size={40}
+        spinnerColor="#2E7DAF"
+        text="Connecting to Blockchains... "
+      />
+    </div>}
     render={({ accounts, slice, fightFactory, web3, networkId }) => (
       <Map accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId} />
     )}

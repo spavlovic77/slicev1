@@ -4,7 +4,7 @@ import Alert from 'react-bootstrap/Alert'
 import { useState, useEffect } from 'react'
 import useSWR from "swr";
 import polygonFight from '../lib/contracts/Fight.json'
-import { Table, TabList, Tab, Icon, Button } from 'web3uikit';
+import { Table, TabList, Tab, Loading } from 'web3uikit';
 import Web3 from 'web3';
 import Link from 'next/link'
 import Spinner from 'react-bootstrap/Spinner'
@@ -122,17 +122,28 @@ if (detail!=undefined) {
 
   return (
     <>
-      {loadingMintData && <Navbar whitel={whitel} isReg={isReg} minter={minter} mintingSpeed={mintingSpeed} start={start} onMint={handleMint} showSpinnerMinter={showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
+    {(!lastSpotBalance || !detail || !loadingMintData) && <div
+      style={{
+        backgroundColor: '#ECECFE',
+        borderRadius: '8px',
+        padding: '20px'
+      }}
+    >
+      <Loading
+        size={40}
+        spinnerColor="#2E7DAF"
+        text="Loading data from blockchains... "
+      />
+    </div>}
+      {(lastSpotBalance && detail && loadingMintData) && <Navbar whitel={whitel} isReg={isReg} minter={minter} mintingSpeed={mintingSpeed} start={start} onMint={handleMint} showSpinnerMinter={showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
        <div className='tabs-wrapper'>
-        
-       {(!lastSpotBalance || !detail) &&<div className='fight-spinner'><Spinner animation="grow" /> Loading fights from blockchain....</div>}
-        {(lastSpotBalance && detail) && <TabList
+        {(lastSpotBalance && detail && loadingMintData) && <TabList
                 defaultActiveKey={1}
                 tabStyle="bulbUnion"
               >
                 <Tab
                   tabKey={1}
-                  tabName="Highest Pot"
+                  tabName="Top Pots"
                 >
                   <div>
                   {lastSpotBalance &&<Table
@@ -152,7 +163,7 @@ if (detail!=undefined) {
                 </Tab>
                 <Tab
                   tabKey={2}
-                  tabName="Highest User Rewards"
+                  tabName="Top Rewards"
                 >
                   <div>
                   {detail &&<Table
@@ -172,7 +183,7 @@ if (detail!=undefined) {
                 </Tab>
                 <Tab
                   tabKey={3}
-                  tabName="Highest Charity Rewards"
+                  tabName="Top Charity"
                 >
                   <div>
                     Comming soon  
@@ -187,7 +198,19 @@ if (detail!=undefined) {
 
 const sli = () => (
   <Web3Container
-    renderLoading={() => <div className='fight-spinner'><Spinner animation="grow" /> Connecting to blockchains....</div>}
+    renderLoading={() => <div
+      style={{
+        backgroundColor: '#ECECFE',
+        borderRadius: '8px',
+        padding: '20px'
+      }}
+    >
+      <Loading
+        size={40}
+        spinnerColor="#2E7DAF"
+        text="Connecting to Blockchains... "
+      />
+    </div>}
     render={({ accounts, slice, fightFactory, web3, networkId }) => (
       <Slice accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>
     )}

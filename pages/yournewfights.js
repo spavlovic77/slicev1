@@ -5,6 +5,7 @@ import useSWR from "swr";
 import AdminFightsNew from '../lib/components/AdminFightsNew'
 import Navbar from '../lib/components/Navbar'
 import Spinner from 'react-bootstrap/Spinner'
+import { Loading } from 'web3uikit';
 
 const fetcherFightsByAdmin = async(fightFactory, accounts) => {
   const fightsByAdmin = await fightFactory.methods.getFightsByAdmin(accounts[0]).call({ from: accounts[0] }).then((data) => {return data})
@@ -78,9 +79,21 @@ const { data: fights, errorfights } = useSWR([fightFactory, accounts, 'fightsByA
 
       return (
         <>
-        {(!fights && loadingMintData) && <div className='fight-spinner'><Spinner animation="grow" /> Loading new fights from blockchain....</div>}
+        {(!fights && !loadingMintData) && <div
+          style={{
+            backgroundColor: '#ECECFE',
+            borderRadius: '8px',
+            padding: '20px'
+          }}
+        >
+          <Loading
+            size={40}
+            spinnerColor="#2E7DAF"
+            text="Loading data from blockchains... "
+          />
+        </div>}
         {(fights && loadingMintData) && <Navbar whitel={whitel} isReg={isReg} minter={minter} mintingSpeed={mintingSpeed} start={start} showSpinnerMinter={showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>}
-        {fights && <AdminFightsNew newFights={fights.filter(f => f.active===false)} fightFactory={fightFactory} web3={web3} accounts={accounts}/>}
+        {(fights && loadingMintData) && <AdminFightsNew newFights={fights.filter(f => f.active===false)} fightFactory={fightFactory} web3={web3} accounts={accounts}/>}
         </>
         )
         }
@@ -88,7 +101,19 @@ const { data: fights, errorfights } = useSWR([fightFactory, accounts, 'fightsByA
 const list = () => (
 
   <Web3Container
-    renderLoading={() => <div className='fight-spinner'><Spinner animation="grow" /> Connecting to blockchains....</div>}
+    renderLoading={() => <div
+      style={{
+        backgroundColor: '#ECECFE',
+        borderRadius: '8px',
+        padding: '20px'
+      }}
+    >
+      <Loading
+        size={40}
+        spinnerColor="#2E7DAF"
+        text="Connecting to Blockchains... "
+      />
+    </div>}
     render={({ accounts, slice, fightFactory, web3, networkId}) => (
       <YourNewFights accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId} />
     )}

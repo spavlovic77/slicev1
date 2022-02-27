@@ -11,7 +11,7 @@ import { useState, useEffect } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
-import { Table } from 'web3uikit';
+import { Table, Loading } from 'web3uikit';
 import Spinner from 'react-bootstrap/Spinner'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
@@ -275,7 +275,19 @@ console.log({dataFeed3})
 const list = () => (
 
   <Web3Container
-    renderLoading={() => <div className='fight-spinner'><Spinner animation="grow" /> Connecting to blockchains....</div>}
+    renderLoading={() => <div
+      style={{
+        backgroundColor: '#ECECFE',
+        borderRadius: '8px',
+        padding: '20px'
+      }}
+    >
+      <Loading
+        size={40}
+        spinnerColor="#2E7DAF"
+        text="Connecting to Blockchains... "
+      />
+    </div>}
     render={({ accounts, slice, fightFactory, web3, networkId}) => (
       <YourRunningFights accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId} />
     )}

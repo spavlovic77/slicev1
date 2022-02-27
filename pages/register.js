@@ -9,7 +9,7 @@ import { useState, useEffect, useRef }  from 'react'
 import { Loader } from '@googlemaps/js-api-loader';
 import FormRegister from '../lib/components/FormRegister'
 import { useRouter } from 'next/router'
-import { Icon } from 'web3uikit';
+import { Icon, Loading } from 'web3uikit';
 import Spinner from 'react-bootstrap/Spinner'
 
 const Register = ({ accounts, slice, fightFactory, networkId }) => {
@@ -174,7 +174,19 @@ const [showSpinner, setShowSpinner] = useState(false)
     
       return (
 <>
-    
+    {!loading && !loadingMintData && <div
+          style={{
+            backgroundColor: '#ECECFE',
+            borderRadius: '8px',
+            padding: '20px'
+          }}
+        >
+          <Loading
+            size={40}
+            spinnerColor="#2E7DAF"
+            text="Loading data from blockchains... "
+          />
+        </div>}
       {(loading && loadingMintData) && <Navbar whitel={whitel} isReg={isReg} minter={minter} mintingSpeed={mintingSpeed} start={start} networkId={networkId} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory}></Navbar>}
       {whiteList!=0 ? null : <FormRegister showSpinner={showSpinner} lat={lat} lon={lon} onSetNick={handleSetNick} onRegister={handleRegister}/> }
       <div id="map" ref={googlemap}/> 
@@ -237,7 +249,19 @@ const [showSpinner, setShowSpinner] = useState(false)
 
 const infra = () => (
   <Web3Container
-  renderLoading={() => <div className='fight-spinner'><Spinner animation="grow" /> Connecting to blockchains....</div>}
+  renderLoading={() => <div
+    style={{
+      backgroundColor: '#ECECFE',
+      borderRadius: '8px',
+      padding: '20px'
+    }}
+  >
+    <Loading
+      size={40}
+      spinnerColor="#2E7DAF"
+      text="Connecting to Blockchains... "
+    />
+  </div>}
   render={({ accounts, slice, fightFactory, web3, networkId }) => (
     <Register accounts={accounts} slice={slice} fightFactory={fightFactory} web3={web3} networkId={networkId}/>
   )}
