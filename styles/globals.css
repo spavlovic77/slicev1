@@ -134,19 +134,20 @@ a {
   border-radius: 10px;
   margin: 10px 10px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.6);
-  padding: 15px 20px;
+  padding: 15px 15px;
 }
 .flex-container .left {
   display: flex;
   justify-content: center;
   align-items: center;
-
+  margin: 5px;
 }
 
 .flex-container .right {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 5px;
 }
 .btn-promo {
   border: none;
@@ -315,4 +316,35 @@ div.progress {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 600px) {
+  .navbar .container {
+    flex-direction: column;
+    padding-top: 10px;
+    text-align: center;
+  }
+  .header {
+    flex-direction: column;
+    padding-top: 10px;
+    text-align: center;
+  }
+  .flex-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .card-list {
+    display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  max-width: 960px;
+  margin: 0 auto;
+  }
+  .center-votes {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 20px;
+    padding: px;
+    margin: 0px;
+  }
 }
