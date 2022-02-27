@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import detectEthereumProvider from '@metamask/detect-provider';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 
 const index = () => {
