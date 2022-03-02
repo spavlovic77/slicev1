@@ -82,15 +82,21 @@ a {
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.6);
   padding: 15px 20px;
 }
-
-
+ul.menu {
+  margin: 0px;
+  padding: 0px;
+}
+ul.networks {
+  margin: 0px;
+  padding: 0px;
+}
 .navbar .container .logo span {
   color: orange;
 }
 .numbers {
   display: flex;
   flex-direction: row;
-  align-items:flex-end ;
+  align-items:flex-end;
 }
 .registerOrMint {
   display: flex;
@@ -317,6 +323,19 @@ div.progress {
   justify-content: center;
   align-items: center;
 }
+.registerOrMint {
+  border: solid 2px #bebaba;
+  border-radius: 15px;
+  padding: 10px 30px 10px 16px;
+  margin: 0px;
+}
+.numbers-border {
+  border: solid 2px #bebaba;
+  border-radius: 15px;
+  padding: 10px 30px 10px 16px;
+  margin: 0px;
+}
+
 
 @media (max-width: 600px) {
   .navbar .container {
@@ -339,12 +358,5 @@ div.progress {
   max-width: 960px;
   margin: 0 auto;
   }
-  .center-votes {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 20px;
-    padding: px;
-    margin: 0px;
-  }
+
 }
