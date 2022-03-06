@@ -6,8 +6,9 @@ import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import useSWR from "swr";
 import Spinner from 'react-bootstrap/Spinner'
-import { Loading } from 'web3uikit';
-
+import { Loading, Icon } from 'web3uikit';
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
 
 const Map = ({ accounts, slice, fightFactory, networkId }) => {
   const router = useRouter()
@@ -35,6 +36,8 @@ const { data: mintersData } = useSWR(stakedByFights ? [slice, accounts, stakedBy
 console.log({stakedByFights}, {mintersData})
 const [bad, setBadActor] = useState(false)
 const [good, setGoodActor] = useState(false)
+const [spinnerGood, setSpinnerGood] = useState(false)
+const [spinnerBad, setSpinnerBad] = useState(false)
 
 useEffect(() => {
   const loader = new Loader({
@@ -72,11 +75,24 @@ useEffect(() => {
     function addMarker(ind, location, Nick, reported, gPoints, contract, white) {
       
       const Report = async() => {
+        setSpinnerBad(true)
+        handleShowBad()
         await slice.methods.reportBadActor(contract).send({ from: accounts[0]})
+        .on('receipt', receipt => {
+          console.log('bad points reported');
+          setSpinnerBad(false)
+        })
         .then(setBadActor(!bad))}
       
+        
         const goodPoints = async() => {
+          setSpinnerGood(true)
+          handleShowGood()
           await slice.methods.reportGoodActor(contract).send({ from: accounts[0], value: priceOfGood})
+          .on('receipt', receipt => {
+            console.log('good points reported');
+            setSpinnerGood(false)
+          })
           .then(setGoodActor(!good))}
 
       const addrShortStart= contract.substring(0,6)
@@ -188,8 +204,19 @@ const handleMint = async () => {
     setFreshMintData(!freshMintData)
   })
   };
+  // modal for Unreporting
+  const [showGood, setShowGood] = useState(false);
+  const handleCloseGood = () => {
+    setShowGood(false);
+    window.location.reload()}
+  const handleShowGood = () => setShowGood(true);
+  // modal for Reporting
+  const [showBad, setShowBad] = useState(false);
+  const handleCloseBad = () => {
+    setShowBad(false);
+    window.location.reload()}
+  const handleShowBad = () => setShowBad(true);
 
-  console.log({mintersData})
   return (
     <>    
     {(!priceOfGood && !loadingMintData) && <div
@@ -208,6 +235,72 @@ const handleMint = async () => {
       {(priceOfGood && loadingMintData) && <Navbar whitel={whitel} isReg={isReg} minter={minter} mintingSpeed={mintingSpeed} start={start} showSpinnerMinter={showSpinnerMinter} networkId={networkId} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} accounts={accounts} slice={slice} fightFactory={fightFactory}/>}
       
       <div id="map" ref={googlemap} />
+
+      <Modal show={showGood} onHide={handleCloseGood}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+          <Icon
+                fill="green"
+                size={24}
+                svg="lifeRing"
+              />
+                Unreporting user </Modal.Title>
+        </Modal.Header>
+        {spinnerGood && <Modal.Body>
+          <Loading
+              size={40}
+              spinnerColor="green"
+              text="Increasing user's health ... "
+            />
+          </Modal.Body>}
+          {!spinnerGood && <Modal.Body>
+            <Icon
+                  fill="green"
+                  size={24}
+                  svg="checkmark"
+                />
+          Saved. You succesfully increased users health status
+          </Modal.Body>}
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleCloseGood}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showBad} onHide={handleCloseBad}>
+        <Modal.Header closeButton>
+        <Modal.Title>
+        <Icon
+              fill="red"
+              size={24}
+              svg="bin"
+            /> Reporting user </Modal.Title>
+        </Modal.Header>
+        {spinnerBad && <Modal.Body>
+          <Loading
+              size={40}
+              spinnerColor="red"
+              text="Decreasing user's health ... "
+            />
+          </Modal.Body>}
+          {!spinnerBad && <Modal.Body>
+            <Icon
+                fill="green"
+                size={24}
+                svg="checkmark"
+              />
+          Saved. You succesfully decreased users health status
+          </Modal.Body>}
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseBad}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+
+
     </>
   )
 }

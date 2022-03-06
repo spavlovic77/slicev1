@@ -11,7 +11,7 @@
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.12.4",
     "@metamask/detect-provider": "^1.2.0",
-    "@openzeppelin/contracts": "^4.3.2",
+    "@openzeppelin/contracts": "^4.5.0",
     "@truffle/hdwallet-provider": "^1.6.0",
     "@web3auth/web3auth": "^0.3.0",
     "axios": "^0.21.4",
