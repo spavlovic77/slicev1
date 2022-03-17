@@ -2,7 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 import detectEthereumProvider from '@metamask/detect-provider';
 import { useState, useEffect } from 'react'
-import { Stepper } from 'web3uikit';
+import Accordion from 'react-bootstrap/Accordion'
+
 
 
 const Index = () => {
@@ -24,65 +25,44 @@ const Index = () => {
           </section>
           <section>
               {metamask               
-              ? <button className='btn-start-app'><Link href='/slice'><a>Launch app</a></Link></button> 
+              ? <Link href='/slice'><button className='btn-start-app'>Launch app</button></Link>
               : <button className='btn-start-app'><a target="_blank" href='https://metamask.io/' rel="noreferrer">Install MetaMask</a></button>}
           </section>
-
-          <div
-                style={{
-                  height: '1px',
-                  minHeight: '450px'
-                }}
-              >
-                <Stepper
-                  completeTitle="Enjoy it"
-                  completeMessage=""
-                  onComplete={() => window.location.reload()}
-                  step={1}
-                  stepData={[
-                    {
-                      content: <p>Create a friendly fight with another influencer so that your followers can earn proceeds from platform<br />
-                      <strong>How?</strong><br/> 
-                      Users use your popularity and buy Spots under your content in order to present <strong>their content.</strong><br />
-                      <strong>What is the catch?</strong><br />
-                      Other users can Flip these Spots with their content. The previous owner earns back <strong>100% </strong> and <strong>in addition 30%</strong><br/>
-                      from <strong>the increased price</strong> of the spot as <strong>a profit</strong>. The rest is distributed to the platform participants.</p>,
-                      title: 'Partner with other Influencer and create a friendly fight '
-                    },
-                    {
-                      content: <p><ul><li>Set the prices of Spots and Flips</li><li> Set the duration of the game</li><li>
-                      Link your content (YouTube, Facebook, Twitch, SoundCloud, Streamable, <br />Vimeo, Wistia, Mixcloud, DailyMotion and Kaltura)</li></ul></p>,
-                      title: 'Set it up'
-                    },
-                    {
-                      content: <p>Call on your followers to participate by sending generated <strong>Bitly short link</strong><br />
-                      They can earn proceeds in the following ways:<br />        
-                      1. Buying a Spot and be Flipped later for <strong>profit</strong> (be aware of risk of not being flipped!)<br />        
-                      2. The owner of the last bought Spot wins the <strong>Last Spot Pot</strong><br />        
-                      3. <strong>Passive income</strong> from staking <strong>freely</strong> minted SLICE tokens</p>,
-                      title: 'Share it'
-                    },
-                    {
-                      content: <p><strong>Influencers</strong><br />
-                      Allow others to earn money = more followers = more popularity<br />
-                      <strong>Advertisers</strong><br />
-                      Free advertisement Spots when flipped + <strong>profit</strong><br />
-                      The owner of the last bought Spot <strong>wins the Pot</strong><br />
-                      <strong>Users</strong><br />
-                      Passive income from the platform<br />
-                      <strong>Charity</strong><br />
-                      Funds raised<br />
-                      <strong>Developers</strong><br />
-                      Slice.help is open source protocol. Anybody can build on top of it.<br />
-                      Developers earn 5% from all bought Spots<br />
-                      </p>,
-                      title: 'Who benefits from this platform?'
-                    }
-                  ]}
-                />
-      </div>
-
     </div> 
+          <Accordion defaultActiveKey="0">
+              <Accordion.Item eventKey="0">
+                <Accordion.Header>What is Slice.help</Accordion.Header>
+                <Accordion.Body>
+                     Slice.help is a "Possitive Sum Game", meaning: everybody wins. It is a unique tool for Influencers to gain more Followers. 
+                     It allows Users to get passive income. It provides a space created by Influencers for you to present your content. And a lot more...
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="1">
+                <Accordion.Header>I am an Influencer. How can I create a space for others to present themselves?</Accordion.Header>
+                <Accordion.Body>
+                Create a friendly fight with another influencer so that you create a space for others to present their content.
+                Users use this space to buy Spots in order to present themselves. What is the catch? Other Users can Flip these
+                Spots with their content. The previous owner earns back 100% and in addition 30%
+                from the increased price of the Spot as a profit. The rest is distributed to the platform participants.
+                </Accordion.Body>
+                </Accordion.Item>
+              <Accordion.Item eventKey="2">
+                <Accordion.Header>94% of proceeds go to Protocol Users, 6% to developers</Accordion.Header>
+                <Accordion.Body>
+               Slice.help is open-source protocol, meaning anybody can use it and develop Web application using the protocol smart contracts.
+               The Devs get 5% from every created Spot. 1% goes to the Platform Dev. 100% of the platform is on-chain.
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="3">
+                <Accordion.Header>What is the "End game" mission for this protocol</Accordion.Header>
+                <Accordion.Body>
+                 Each hour, one SLICE is created for everybody. No matter how late you are, you get the same amount of SLICE as everybody else. 
+                 Fake accounts? Lets explore the protocol and you will learn how the protocol deals with it. The "End Game" is the most fair distribution
+                 of SLICE tokens for everybody. The users, the community itself will make sure that fake accounts are continuously eliminated. Let see how will
+                 this experiment evolve.
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
     </>
   )
 }

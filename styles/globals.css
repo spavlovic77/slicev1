@@ -29,16 +29,17 @@ a {
   align-items: center;
 }
 .btn-start-app {
-  background-color: grey;
+  background-color: transparent;
   font-size: 28px;
-  color: #fff;
-  border: solid 5px rgb(65, 64, 64);
-  border-radius: 25px;
+  color: grey;
+  border: solid 2px black;
+  border-radius: 15px;
   padding: 15px 15px;
   margin-bottom: 10px;
 }
 .btn-start-app a {
   text-decoration: none;
+  color:grey;
 }
 .btn-start-app:hover  {
   background-color: rgb(182, 174, 174);
