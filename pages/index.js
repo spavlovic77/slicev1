@@ -44,7 +44,7 @@ const Index = () => {
                       content: <p>Create a friendly fight with another influencer so that your followers can earn proceeds from platform<br />
                       <strong>How?</strong><br/> 
                       Users use your popularity and buy Spots under your content in order to present <strong>their content.</strong><br />
-                      <strong>What's the catch?</strong><br />
+                      <strong>What is the catch?</strong><br />
                       Other users can Flip these Spots with their content. The previous owner earns back <strong>100% </strong> and <strong>in addition 30%</strong><br/>
                       from <strong>the increased price</strong> of the spot as <strong>a profit</strong>. The rest is distributed to the platform participants.</p>,
                       title: 'Partner with other Influencer and create a friendly fight '
