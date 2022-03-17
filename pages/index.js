@@ -3,6 +3,7 @@ import Link from 'next/link'
 import detectEthereumProvider from '@metamask/detect-provider';
 import { useState, useEffect } from 'react'
 import Accordion from 'react-bootstrap/Accordion'
+import Footer from '../lib/components/Footer';
 
 
 
@@ -62,6 +63,7 @@ const Index = () => {
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>
+            <Footer />
     </>
   )
 }
