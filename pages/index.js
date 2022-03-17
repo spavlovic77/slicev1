@@ -58,8 +58,7 @@ const Index = () => {
                 <Accordion.Body>
                  Each hour, one SLICE is created for everybody. No matter how late you are, you get the same amount of SLICE as everybody else. 
                  Fake accounts? Lets explore the protocol and you will learn how the protocol deals with it. The &quot;End Game&quot; is the most fair distribution
-                 of SLICE tokens for everybody. The users, the community itself will make sure that fake accounts are continuously eliminated. Let see how will
-                 this experiment evolve.
+                 of SLICE tokens for everybody. The users, the community itself will make sure that fake accounts are continuously eliminated. 
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>
