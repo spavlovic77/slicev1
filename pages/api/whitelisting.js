@@ -5,7 +5,7 @@ export default async (req, res) => {
     const web3 = new Web3('');
     const { signature } = web3.eth.accounts.sign(
       message, 
-      process.env.PRIVATE_KEY
+      process.env.SIGNER
       );
     res
       .status(200)
