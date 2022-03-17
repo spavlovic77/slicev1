@@ -35,7 +35,7 @@ const Index = () => {
                 }}
               >
                 <Stepper
-                  completeTitle="Enjoy it                         "
+                  completeTitle="Enjoy it"
                   completeMessage=""
                   onComplete={() => window.location.reload()}
                   step={1}
