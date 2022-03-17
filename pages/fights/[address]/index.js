@@ -72,7 +72,7 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
               })
               const short = await fightContract.methods.getFightData().call({ from: accounts[0] })
               .then(data => {
-                setShortUrl(data[9])
+                setShortUrl(data[8])
               })
               const charityBalance = await fightContract.methods.showBalance().call({ from: accounts[0] })
               .then(data => {
@@ -176,20 +176,21 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
       }
       const [buyModalShow, setBuyModalShow] = useState(true)
       const [showSpinnerBuy, setShowSpinnerBuy] = useState(false)
-      const handleBuySpot = async(text, link, pic) => {
+      const handleBuySpot = async(text, link, pic, mediaType) => {
         if (text==undefined || link==undefined) {
           alert('Looks like you did not fill some value(s). Please check formular.')
           return;
         }
         else {
       setShowSpinnerBuy(true)
-      await fightContract.methods.createSpot_g4A(text, link, pic).send({ from: accounts[0], value: fightData[1]})
+      await fightContract.methods.createSpot_g4A(text, link, pic, mediaType).send({ from: accounts[0], value: fightData[1]})
       .on('receipt', receipt => {
         console.log('spot bought')
       })
       setFreshData(!freshData)
       setShowSpinnerBuy(false)
       setBuyModalShow(false)
+      
         }
       }
     const [showSpinnerReserve, setShowSpinnerReserve] = useState(false)
@@ -203,7 +204,7 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
     }
     const [showFlipModal, setShowFlipModal] = useState(true)
     const [showSpinnerFlip, setShowSpinnerFlip] = useState(false)
-    const handleSpotFlip = async(text,link, pic, spot, price) => {
+    const handleSpotFlip = async(text,link, pic, spot, price, mediaType) => {
       if (text==undefined || link==undefined) {
         alert('Looks like you did not fill some value(s). Please check formular.')
         return;
@@ -212,7 +213,7 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
       console.log(text, link, pic, spot, price)
       const spotIndex = spot-1;
       setShowSpinnerFlip(true)
-      await fightContract.methods.flip_Maf(spotIndex, text, link, pic).send({ from: accounts[0], value: price})
+      await fightContract.methods.flip_Maf(spotIndex, text, link, pic, mediaType).send({ from: accounts[0], value: price})
       .then(console.log('ide'))
       setFreshData(!freshData)
       setShowSpinnerFlip(false)
