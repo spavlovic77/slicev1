@@ -33,7 +33,7 @@ const Index = () => {
               <Accordion.Item eventKey="0">
                 <Accordion.Header>What is Slice.help</Accordion.Header>
                 <Accordion.Body>
-                     Slice.help is a "Possitive Sum Game", meaning: everybody wins. It is a unique tool for Influencers to gain more Followers. 
+                     Slice.help is a &quot;Possitive Sum Game&quot;, meaning: everybody wins. It is a unique tool for Influencers to gain more Followers. 
                      It allows Users to get passive income. It provides a space created by Influencers for you to present your content. And a lot more...
                 </Accordion.Body>
               </Accordion.Item>
@@ -54,10 +54,10 @@ const Index = () => {
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="3">
-                <Accordion.Header>What is the "End game" mission for this protocol</Accordion.Header>
+                <Accordion.Header>What is the &quot;End game&quot; mission for this protocol</Accordion.Header>
                 <Accordion.Body>
                  Each hour, one SLICE is created for everybody. No matter how late you are, you get the same amount of SLICE as everybody else. 
-                 Fake accounts? Lets explore the protocol and you will learn how the protocol deals with it. The "End Game" is the most fair distribution
+                 Fake accounts? Lets explore the protocol and you will learn how the protocol deals with it. The &quot;End Game&quot; is the most fair distribution
                  of SLICE tokens for everybody. The users, the community itself will make sure that fake accounts are continuously eliminated. Let see how will
                  this experiment evolve.
                 </Accordion.Body>
