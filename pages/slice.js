@@ -8,6 +8,7 @@ import { Table, TabList, Tab, Loading } from 'web3uikit';
 import Web3 from 'web3';
 import Link from 'next/link'
 import Spinner from 'react-bootstrap/Spinner'
+import Footer from '../lib/components/Footer';
 
          
 
@@ -142,7 +143,27 @@ if (detail!=undefined) {
                 tabStyle="bulbUnion"
               >
                 <Tab
-                  tabKey={1}
+                      tabKey={1}
+                      tabName="Top Rewards"
+                    >
+                      <div>
+                      {detail &&<Table
+                    columnsConfig="50px 1fr 1fr 50px"
+                    data={dataFeed2}
+                    header={[
+                      <span key={203}></span>,
+                      <span key={201}>Fight</span>,
+                      <span key={202}>Rewards from created spots</span>,
+                      <span key={204}></span>
+                    ]}
+                    maxPages={3}
+                    onPageNumberChanged={function noRefCheck(){}}
+                    pageSize={5}
+                  />}
+                      </div>
+                </Tab>
+                <Tab
+                  tabKey={2}
                   tabName="Top Pots"
                 >
                   <div>
@@ -161,36 +182,10 @@ if (detail!=undefined) {
               />}
                   </div>
                 </Tab>
-                <Tab
-                  tabKey={2}
-                  tabName="Top Rewards"
-                >
-                  <div>
-                  {detail &&<Table
-                columnsConfig="50px 1fr 1fr 50px"
-                data={dataFeed2}
-                header={[
-                  <span key={203}></span>,
-                  <span key={201}>Fight</span>,
-                  <span key={202}>Rewards from created spots</span>,
-                  <span key={204}></span>
-                ]}
-                maxPages={3}
-                onPageNumberChanged={function noRefCheck(){}}
-                pageSize={5}
-              />}
-                  </div>
-                </Tab>
-                <Tab
-                  tabKey={3}
-                  tabName="Top Charity"
-                >
-                  <div>
-                    Comming soon  
-                  </div>
-                </Tab>
               </TabList>}
+              {(lastSpotBalance && detail && loadingMintData) && <Footer />}
   </div>
+  
 </>
   )
 }
