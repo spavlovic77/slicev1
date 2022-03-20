@@ -118,6 +118,21 @@ ul.networks {
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.6);
   padding: 2px 20px;
 }
+#__next > div > section.header > ul.charity > li:nth-child(2) > div {
+  display: inline;
+}
+#__next > div > section.header > ul.pot > li:nth-child(2) > div > div {
+  display: inline;
+}
+#__next > div > div.flex-container > div.content-center > div > ul.center-buttons > li.center-button-left > div {
+  display: inline;
+}
+#__next > div > div.flex-container > div.content-center > div > ul.center-buttons > li.center-button-right > div {
+  display: inline;
+}
+#__next > div > div.flex-container > div.content-center > div > ul.center-timer > li > div {
+  display: inline;
+}
 .header .dropdown {
   display: flex;
   padding: 0;
