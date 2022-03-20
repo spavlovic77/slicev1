@@ -133,6 +133,24 @@ ul.networks {
 #__next > div > div.flex-container > div.content-center > div > ul.center-timer > li > div {
   display: inline;
 }
+#__next > div > section.header > ul.charity > li:nth-child(1) > div {
+  display: inline;
+}
+#__next > div > section.header > ul.pot > li:nth-child(1) > div > div {
+  display: inline;
+}
+#__next > div > section.header > ul.earn > li:nth-child(1) > div {
+  display: inline;
+}
+#__next > div > div.flex-container > div.content-center > div > ul.center-map > li.see-map > a > div {
+  display: inline;
+}
+#__next > div > div.flex-container > div.content-center > div > ul.center-map > li.short-link > button > div {
+  display: inline;
+}
+#__next > div > div.buy > button > div {
+  display: inline;
+}
 .header .dropdown {
   display: flex;
   padding: 0;

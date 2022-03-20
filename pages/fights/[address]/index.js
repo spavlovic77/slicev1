@@ -258,6 +258,18 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
       })
       };
 
+      const [icon, setIcon] = useState ('eth')
+      const coinLogo = () => {
+         if (networkId == 1) {setIcon('eth')}
+         else if (networkId==56) {setIcon('bnb')}
+         else if (networkId==137){setIcon('matic')} 
+         else if (networkId==43114){setIcon('avax')}
+         else if (networkId==5777){setIcon('eth')}
+      }
+      
+      useEffect(() => {
+          coinLogo()
+      }, [networkId])
 
   return (
     <>
@@ -275,8 +287,8 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
           />
         </div>}
       {(loading && timer && startTime)  && <Navbar whitel={whitel} isReg={isReg} minter={minter} mintingSpeed={mintingSpeed} start={start} showSpinnerMinter = {showSpinnerMinter} staked={staked} vSliceBalance={vSliceBalance} onMint={handleMint} fightFactory={fightFactory} address={address} accounts={accounts} slice={slice} web3={web3} networkId={networkId}/>}
-      {(loading && timer && startTime)  && <Content whitel={whitel} isReg={isReg} showSpinnerPot={showSpinnerPot} showSpinnerWith={showSpinnerWith} shortUrl={shortUrl} showSpinnerVote1={showSpinnerVote1} showSpinnerVote2={showSpinnerVote2} showSpinnerStake={showSpinnerStake} showSpinnerUnstake={showSpinnerUnstake} charity={charity} startTime={startTime} timer={timer} lsb={lsb} votes1={votes1} votes2={votes2} onVote1={handleVote1} onVote2={handleVote2} accounts={accounts} web3={web3} address ={address} onWithdraw={handleOnWithdraw} onPotWithdraw={handlePotWithraw} onStaking={handleStaking} onUnStaking={handleUnStaking} fightData={fightData} pendingWithdrawal={pendingWithdrawal} staked={stakedInFight} vSliceBalance={vSliceBalance} charityBalance={charityBalance}/>}
-      {(loading && timer && startTime)  && <Spots showFlipModal={showFlipModal} buyModalShow={buyModalShow} showSpinnerReset={showSpinnerReset} showSpinnerReserve={showSpinnerReserve} showSpinnerBuy={showSpinnerBuy} showSpinnerFlip={showSpinnerFlip} accounts={accounts} onBuySpot={handleBuySpot} onSpotReservation={handleSpotReservation} onSpotFlip={handleSpotFlip} onSpotReset={handleSpotReset} fightData={fightData} spots={spots} address={addr}/>}
+      {(loading && timer && startTime)  && <Content icon={icon} whitel={whitel} isReg={isReg} showSpinnerPot={showSpinnerPot} showSpinnerWith={showSpinnerWith} shortUrl={shortUrl} showSpinnerVote1={showSpinnerVote1} showSpinnerVote2={showSpinnerVote2} showSpinnerStake={showSpinnerStake} showSpinnerUnstake={showSpinnerUnstake} charity={charity} startTime={startTime} timer={timer} lsb={lsb} votes1={votes1} votes2={votes2} onVote1={handleVote1} onVote2={handleVote2} accounts={accounts} web3={web3} address ={address} onWithdraw={handleOnWithdraw} onPotWithdraw={handlePotWithraw} onStaking={handleStaking} onUnStaking={handleUnStaking} fightData={fightData} pendingWithdrawal={pendingWithdrawal} staked={stakedInFight} vSliceBalance={vSliceBalance} charityBalance={charityBalance}/>}
+      {(loading && timer && startTime)  && <Spots icon={icon} showFlipModal={showFlipModal} buyModalShow={buyModalShow} showSpinnerReset={showSpinnerReset} showSpinnerReserve={showSpinnerReserve} showSpinnerBuy={showSpinnerBuy} showSpinnerFlip={showSpinnerFlip} accounts={accounts} onBuySpot={handleBuySpot} onSpotReservation={handleSpotReservation} onSpotFlip={handleSpotFlip} onSpotReset={handleSpotReset} fightData={fightData} spots={spots} address={addr}/>}
     </>
   )
 }
