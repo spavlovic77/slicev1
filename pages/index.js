@@ -4,6 +4,7 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import { useState, useEffect } from 'react'
 import Accordion from 'react-bootstrap/Accordion'
 import Footer from '../lib/components/Footer';
+import { CryptoLogos } from 'web3uikit';
 
 
 
@@ -21,6 +22,11 @@ const Index = () => {
   return (
     <>
     <div className='index-container'>
+      <ul className='social'>
+      <li><CryptoLogos  chain="avalanche"  onClick={function noRefCheck(){}}  size="48px"/></li>
+      <li><CryptoLogos  chain="polygon"  onClick={function noRefCheck(){}}  size="48px"/></li>
+      <li><CryptoLogos  chain="binance"  onClick={function noRefCheck(){}}  size="48px"/></li>
+      </ul>
           <section className='welcome'>
             <Link href='/slice'><a><img src='/slice.png'></img></a></Link>
           </section>

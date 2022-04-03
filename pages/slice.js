@@ -153,7 +153,7 @@ if (detail!=undefined) {
                     header={[
                       <span key={203}></span>,
                       <span key={201}>Fight</span>,
-                      <span key={202}>Rewards from created spots</span>,
+                      <span key={202}>Users share</span>,
                       <span key={204}></span>
                     ]}
                     maxPages={3}
