@@ -172,7 +172,10 @@ body > div.fade.modal.show > div > div > div.modal-body > form > div:nth-child(1
 body > div.fade.modal.show > div > div > div.modal-body > form > div:nth-child(2) > h6 > div {
   display: inline;
 }
-#__next > div > section.card-list > article:nth-child(2) > ul.card-status > li > div {
+ul.card-status > li > div {
+  display: inline;
+}
+div.link > div {
   display: inline;
 }
 #uncontrolled-tab-example-tabpane-picture > div.sc-bdvvtL.kInKvI {

@@ -190,7 +190,7 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
       setFreshData(!freshData)
       setShowSpinnerBuy(false)
       setBuyModalShow(false)
-      
+      window.location.reload()
         }
       }
     const [showSpinnerReserve, setShowSpinnerReserve] = useState(false)
@@ -218,6 +218,7 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
       setFreshData(!freshData)
       setShowSpinnerFlip(false)
       setShowFlipModal(false)
+      window.location.reload()
     }
   }
     const [showSpinnerReset, setShowSpinnerReset] = useState(false)
