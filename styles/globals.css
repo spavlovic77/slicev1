@@ -340,9 +340,13 @@ article.card {
 }
 .card-status {
   display: flex;
+  flex-direction: column;
   margin: 0px;
   padding: 0px;
   font-size: 12px;
+}
+.icon-inline {
+  display: inline;
 }
 .card-buttons {
   display: flex;
