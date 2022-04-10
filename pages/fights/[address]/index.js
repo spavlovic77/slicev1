@@ -54,13 +54,13 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
       else {
         const init = async () => {
           try { 
-            const getVotes2 = await fightContract.methods.getVotes().call({ from: accounts[0] })
+            const getVotes2 = await fightContract.methods.showBalance().call({ from: accounts[0] })
             .then(data => {
-              setVotes2(data[1])
+              setVotes2(data[6])
             })
-            const getVotes1 = await fightContract.methods.getVotes().call({ from: accounts[0] })
+            const getVotes1 = await fightContract.methods.showBalance().call({ from: accounts[0] })
             .then(data => {
-              setVotes1(data[0])
+              setVotes1(data[7])
             })
               const fightData = await fightContract.methods.getFightData().call({ from: accounts[0] })
               .then(data => {
