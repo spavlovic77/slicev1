@@ -172,6 +172,12 @@ body > div.fade.modal.show > div > div > div.modal-body > form > div:nth-child(1
 body > div.fade.modal.show > div > div > div.modal-body > form > div:nth-child(2) > h6 > div {
   display: inline;
 }
+body > div.fade.modal.show > div > div > div.modal-header > div > div {
+  display: inline; 
+}
+body > div.fade.modal.show > div > div > div.modal-body > div {
+  display: inline;  
+}
 ul.card-status > li > div {
   display: inline;
 }

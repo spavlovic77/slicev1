@@ -56,11 +56,11 @@ const Fight = ({ fightFactory, accounts, slice, web3, networkId }) => {
           try { 
             const getVotes2 = await fightContract.methods.showBalance().call({ from: accounts[0] })
             .then(data => {
-              setVotes2(data[6])
+              setVotes2(data[7])
             })
             const getVotes1 = await fightContract.methods.showBalance().call({ from: accounts[0] })
             .then(data => {
-              setVotes1(data[7])
+              setVotes1(data[6])
             })
               const fightData = await fightContract.methods.getFightData().call({ from: accounts[0] })
               .then(data => {
